@@ -6,26 +6,26 @@
 
 class Enclosure {
 private:
-    int capacity; // Вместимость вольера
-    AnimalType allowedType; // Тип разрешённых животных
-    double dailyExpense; // Ежедневные расходы
-    int currentCount; // Текущее количество животных
-    std::string climate; // Климат вольера
+    int capacity; // Р’РјРµСЃС‚РёРјРѕСЃС‚СЊ РІРѕР»СЊРµСЂР°
+    AnimalType allowedType; // РўРёРї СЂР°Р·СЂРµС€С‘РЅРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…
+    double dailyExpense; // Р•Р¶РµРґРЅРµРІРЅС‹Рµ СЂР°СЃС…РѕРґС‹
+    int currentCount; // РўРµРєСѓС‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р¶РёРІРѕС‚РЅС‹С…
+    std::string climate; // РљР»РёРјР°С‚ РІРѕР»СЊРµСЂР°
 
 public:
     Enclosure(int capacity, AnimalType allowedType, double dailyExpense, const std::string& climate);
 
-    // Методы доступа
+    // РњРµС‚РѕРґС‹ РґРѕСЃС‚СѓРїР°
     int getCapacity() const;
     AnimalType getAllowedType() const;
     double getDailyExpense() const;
     int getCurrentCount() const;
     std::string getClimate() const;
 
-    // Управление животными
+    // РЈРїСЂР°РІР»РµРЅРёРµ Р¶РёРІРѕС‚РЅС‹РјРё
     void addAnimal();
     void removeAnimal();
-    bool hasFreeSlot() const; // Новый метод для проверки слота
+    bool hasFreeSlot() const; // РќРѕРІС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїСЂРѕРІРµСЂРєРё СЃР»РѕС‚Р°
 };
 
 #endif

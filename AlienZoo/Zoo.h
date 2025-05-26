@@ -7,87 +7,87 @@
 #include "Animal.h"
 #include "Enclosure.h"
 
-// Структура для хранения информации о животных
+// РЎС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ Р¶РёРІРѕС‚РЅС‹С…
 struct AnimalInfo {
-    std::string name;       // Имя животного
-    std::string species;    // Вид животного
-    double price;           // Цена
-    AnimalType type;        // Тип (хищник, травоядное, водоплавающее)
-    std::string climate;    // Климат
+    std::string name;       // РРјСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
+    std::string species;    // Р’РёРґ Р¶РёРІРѕС‚РЅРѕРіРѕ
+    double price;           // Р¦РµРЅР°
+    AnimalType type;        // РўРёРї (С…РёС‰РЅРёРє, С‚СЂР°РІРѕСЏРґРЅРѕРµ, РІРѕРґРѕРїР»Р°РІР°СЋС‰РµРµ)
+    std::string climate;    // РљР»РёРјР°С‚
 };
 
-// Структура больных животных
+// РЎС‚СЂСѓРєС‚СѓСЂР° Р±РѕР»СЊРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…
 struct SickAnimal {
     Animal* animal;
-    int daysSick;  // Количество дней болезни
+    int daysSick;  // РљРѕР»РёС‡РµСЃС‚РІРѕ РґРЅРµР№ Р±РѕР»РµР·РЅРё
 };
 
 class Zoo {
 private:
-    std::string name;              // Имя зоопарка
-    int food;                      // Количество еды
-    double money;                  // Деньги зоопарка
-    int popularity;                // Популярность зоопарка
-    int currentDay;                // Текущий день
+    std::string name;              // РРјСЏ Р·РѕРѕРїР°СЂРєР°
+    int food;                      // РљРѕР»РёС‡РµСЃС‚РІРѕ РµРґС‹
+    double money;                  // Р”РµРЅСЊРіРё Р·РѕРѕРїР°СЂРєР°
+    int popularity;                // РџРѕРїСѓР»СЏСЂРЅРѕСЃС‚СЊ Р·РѕРѕРїР°СЂРєР°
+    int currentDay;                // РўРµРєСѓС‰РёР№ РґРµРЅСЊ
     int availableFeeders = 0;
 
-    std::vector<SickAnimal> sickAnimals; // Больные животные
-    std::vector<Employee> employees;     // Список сотрудников
-    std::vector<Animal*> animals;        // Список животных
-    std::vector<Enclosure> enclosures;   // Список вольеров
+    std::vector<SickAnimal> sickAnimals; // Р‘РѕР»СЊРЅС‹Рµ Р¶РёРІРѕС‚РЅС‹Рµ
+    std::vector<Employee> employees;     // РЎРїРёСЃРѕРє СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ
+    std::vector<Animal*> animals;        // РЎРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С…
+    std::vector<Enclosure> enclosures;   // РЎРїРёСЃРѕРє РІРѕР»СЊРµСЂРѕРІ
 
-    static const std::vector<AnimalInfo> animalOptions; // Список доступных животных
+    static const std::vector<AnimalInfo> animalOptions; // РЎРїРёСЃРѕРє РґРѕСЃС‚СѓРїРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…
 
-    // Вспомогательные методы
-    void processVeterinarianShortage(int shortage);  // Обработка нехватки ветеринаров
-    void processCleanerShortage(int shortage);       // Обработка нехватки уборщиков
-    void processFeederShortage(int shortage);        // Обработка нехватки кормильщиков
-    int dailyAnimalPurchases; // Лимит покупок животных в день
-    std::vector<Animal*> purchasePool; // Пул животных для покупки
+    // Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ РјРµС‚РѕРґС‹
+    void processVeterinarianShortage(int shortage);  // РћР±СЂР°Р±РѕС‚РєР° РЅРµС…РІР°С‚РєРё РІРµС‚РµСЂРёРЅР°СЂРѕРІ
+    void processCleanerShortage(int shortage);       // РћР±СЂР°Р±РѕС‚РєР° РЅРµС…РІР°С‚РєРё СѓР±РѕСЂС‰РёРєРѕРІ
+    void processFeederShortage(int shortage);        // РћР±СЂР°Р±РѕС‚РєР° РЅРµС…РІР°С‚РєРё РєРѕСЂРјРёР»СЊС‰РёРєРѕРІ
+    int dailyAnimalPurchases; // Р›РёРјРёС‚ РїРѕРєСѓРїРѕРє Р¶РёРІРѕС‚РЅС‹С… РІ РґРµРЅСЊ
+    std::vector<Animal*> purchasePool; // РџСѓР» Р¶РёРІРѕС‚РЅС‹С… РґР»СЏ РїРѕРєСѓРїРєРё
 
 public:
-    // Конструктор и деструктор
+    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Рё РґРµСЃС‚СЂСѓРєС‚РѕСЂ
     Zoo(const std::string& name);
-    ~Zoo(); // Удаляет динамически созданных животных
-    void refreshPurchasePool(); // Обновление пула животных
-    void updatePurchasePool();  // Обновление пула животных за деньги
+    ~Zoo(); // РЈРґР°Р»СЏРµС‚ РґРёРЅР°РјРёС‡РµСЃРєРё СЃРѕР·РґР°РЅРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…
+    void refreshPurchasePool(); // РћР±РЅРѕРІР»РµРЅРёРµ РїСѓР»Р° Р¶РёРІРѕС‚РЅС‹С…
+    void updatePurchasePool();  // РћР±РЅРѕРІР»РµРЅРёРµ РїСѓР»Р° Р¶РёРІРѕС‚РЅС‹С… Р·Р° РґРµРЅСЊРіРё
 
-    // Вывод информации о состоянии зоопарка
-    void displayStatus() const;    // Вывод текущего состояния зоопарка
-    void displayMenu() const;      // Вывод меню
-    void processChoice();          // Обработка выбора пользователя
-    void listAnimals() const;      // Вывод списка животных
+    // Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ СЃРѕСЃС‚РѕСЏРЅРёРё Р·РѕРѕРїР°СЂРєР°
+    void displayStatus() const;    // Р’С‹РІРѕРґ С‚РµРєСѓС‰РµРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ Р·РѕРѕРїР°СЂРєР°
+    void displayMenu() const;      // Р’С‹РІРѕРґ РјРµРЅСЋ
+    void processChoice();          // РћР±СЂР°Р±РѕС‚РєР° РІС‹Р±РѕСЂР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+    void listAnimals() const;      // Р’С‹РІРѕРґ СЃРїРёСЃРєР° Р¶РёРІРѕС‚РЅС‹С…
 
-    // Меню управления
-    void manageAnimals();          // Менеджмент животных
-    void manageProcurements();     // Менеджмент закупок
-    void manageBuildings();        // Менеджмент построек
-    void displayEnclosureInfo() const; // Информация о вольерах
+    // РњРµРЅСЋ СѓРїСЂР°РІР»РµРЅРёСЏ
+    void manageAnimals();          // РњРµРЅРµРґР¶РјРµРЅС‚ Р¶РёРІРѕС‚РЅС‹С…
+    void manageProcurements();     // РњРµРЅРµРґР¶РјРµРЅС‚ Р·Р°РєСѓРїРѕРє
+    void manageBuildings();        // РњРµРЅРµРґР¶РјРµРЅС‚ РїРѕСЃС‚СЂРѕРµРє
+    void displayEnclosureInfo() const; // РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РІРѕР»СЊРµСЂР°С…
 
-    // Действия подсистем
-    void breedAnimals();           // Размножение животных
+    // Р”РµР№СЃС‚РІРёСЏ РїРѕРґСЃРёСЃС‚РµРј
+    void breedAnimals();           // Р Р°Р·РјРЅРѕР¶РµРЅРёРµ Р¶РёРІРѕС‚РЅС‹С…
     void renameAnimal();
-    void buyAnimal();              // Покупка животных
-    void sellAnimal();             // Продажа животных
-    void buyFood();                // Покупка еды
-    void advertise();              // Реклама зоопарка
-    void buyEnclosure();           // Покупка вольеров
-    void addAnimalToEnclosure(Animal* child, AnimalType type); // Добавление животного в вольер
-    void healAnimal();             // Лечение больных животных
+    void buyAnimal();              // РџРѕРєСѓРїРєР° Р¶РёРІРѕС‚РЅС‹С…
+    void sellAnimal();             // РџСЂРѕРґР°Р¶Р° Р¶РёРІРѕС‚РЅС‹С…
+    void buyFood();                // РџРѕРєСѓРїРєР° РµРґС‹
+    void advertise();              // Р РµРєР»Р°РјР° Р·РѕРѕРїР°СЂРєР°
+    void buyEnclosure();           // РџРѕРєСѓРїРєР° РІРѕР»СЊРµСЂРѕРІ
+    void addAnimalToEnclosure(Animal* child, AnimalType type); // Р”РѕР±Р°РІР»РµРЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ РІ РІРѕР»СЊРµСЂ
+    void healAnimal();             // Р›РµС‡РµРЅРёРµ Р±РѕР»СЊРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…
 
-    // Переход к следующему дню: перерасчёт показателей
-    void nextDay();                // Переход к следующему дню
+    // РџРµСЂРµС…РѕРґ Рє СЃР»РµРґСѓСЋС‰РµРјСѓ РґРЅСЋ: РїРµСЂРµСЂР°СЃС‡С‘С‚ РїРѕРєР°Р·Р°С‚РµР»РµР№
+    void nextDay();                // РџРµСЂРµС…РѕРґ Рє СЃР»РµРґСѓСЋС‰РµРјСѓ РґРЅСЋ
 
-    // Утилиты
-    int totalAnimalCount() const;  // Подсчёт всех животных
-    bool isGameOver() const;       // Проверка завершения игры
-    int getCurrentDay() const { return currentDay; } // Получение текущего дня
+    // РЈС‚РёР»РёС‚С‹
+    int totalAnimalCount() const;  // РџРѕРґСЃС‡С‘С‚ РІСЃРµС… Р¶РёРІРѕС‚РЅС‹С…
+    bool isGameOver() const;       // РџСЂРѕРІРµСЂРєР° Р·Р°РІРµСЂС€РµРЅРёСЏ РёРіСЂС‹
+    int getCurrentDay() const { return currentDay; } // РџРѕР»СѓС‡РµРЅРёРµ С‚РµРєСѓС‰РµРіРѕ РґРЅСЏ
 
-    // Менеджмент сотрудников
-    void manageEmployees();        // Меню управления сотрудниками
-    void hireEmployee();           // Нанять работника
-    void fireEmployee();           // Уволить работника
-    void listEmployees() const;    // Просмотреть список работников
+    // РњРµРЅРµРґР¶РјРµРЅС‚ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ
+    void manageEmployees();        // РњРµРЅСЋ СѓРїСЂР°РІР»РµРЅРёСЏ СЃРѕС‚СЂСѓРґРЅРёРєР°РјРё
+    void hireEmployee();           // РќР°РЅСЏС‚СЊ СЂР°Р±РѕС‚РЅРёРєР°
+    void fireEmployee();           // РЈРІРѕР»РёС‚СЊ СЂР°Р±РѕС‚РЅРёРєР°
+    void listEmployees() const;    // РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ СЃРїРёСЃРѕРє СЂР°Р±РѕС‚РЅРёРєРѕРІ
 };
 
 #endif

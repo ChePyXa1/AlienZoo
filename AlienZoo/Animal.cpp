@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 
-// Конструктор класса Animal
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° Animal
 Animal::Animal(const std::string& name, const std::string& species, Gender gender,
     int ageInDays, double weight, const std::string& preferredClimate,
     double price, AnimalType type, bool isBornInZoo,
@@ -23,112 +23,112 @@ Animal::Animal(const std::string& name, const std::string& species, Gender gende
 
 
 
-// Деструктор класса Animal
+// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° Animal
 Animal::~Animal() {}
 
-// Возвращает имя животного
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРјСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
 std::string Animal::getName() const {
     return name;
 }
 
-// Возвращает вид животного
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ РІРёРґ Р¶РёРІРѕС‚РЅРѕРіРѕ
 std::string Animal::getSpecies() const {
     return species;
 }
 
-// Возвращает возраст в днях
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ РІРѕР·СЂР°СЃС‚ РІ РґРЅСЏС…
 int Animal::getAgeInDays() const {
     return ageInDays;
 }
 
-// Возвращает вес животного
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ РІРµСЃ Р¶РёРІРѕС‚РЅРѕРіРѕ
 double Animal::getWeight() const {
     return weight;
 }
 
-// Возвращает предпочтительный климат животного
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ РїСЂРµРґРїРѕС‡С‚РёС‚РµР»СЊРЅС‹Р№ РєР»РёРјР°С‚ Р¶РёРІРѕС‚РЅРѕРіРѕ
 std::string Animal::getPreferredClimate() const {
     return preferredClimate;
 }
 
-// Возвращает цену животного
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ С†РµРЅСѓ Р¶РёРІРѕС‚РЅРѕРіРѕ
 double Animal::getPrice() const {
     return price;
 }
 
-// Возвращает тип животного
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚РёРї Р¶РёРІРѕС‚РЅРѕРіРѕ
 AnimalType Animal::getType() const {
     return type;
 }
 
-// Возвращает пол животного
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРѕР» Р¶РёРІРѕС‚РЅРѕРіРѕ
 Gender Animal::getGender() const {
     return gender;
 }
 
-// Возвращает информацию о родителях
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЂРѕРґРёС‚РµР»СЏС…
 std::pair<ParentInfo, ParentInfo> Animal::getParents() const {
     return parents;
 }
 
-// Проверяет, родилось ли животное в зоопарке
+// РџСЂРѕРІРµСЂСЏРµС‚, СЂРѕРґРёР»РѕСЃСЊ Р»Рё Р¶РёРІРѕС‚РЅРѕРµ РІ Р·РѕРѕРїР°СЂРєРµ
 bool Animal::wasBornInZoo() const {
     return isBornInZoo;
 }
 
-// Увеличивает возраст животного в днях
+// РЈРІРµР»РёС‡РёРІР°РµС‚ РІРѕР·СЂР°СЃС‚ Р¶РёРІРѕС‚РЅРѕРіРѕ РІ РґРЅСЏС…
 void Animal::increaseAgeInDays() {
     ageInDays++;
 }
 
-// Проверяет смерть животного после 10 дней
+// РџСЂРѕРІРµСЂСЏРµС‚ СЃРјРµСЂС‚СЊ Р¶РёРІРѕС‚РЅРѕРіРѕ РїРѕСЃР»Рµ 10 РґРЅРµР№
 bool Animal::checkDeathAfterTenDays() const {
     if (ageInDays > 10) {
-        return (std::rand() % 100) < 20; // 20% шанс смерти
+        return (std::rand() % 100) < 20; // 20% С€Р°РЅСЃ СЃРјРµСЂС‚Рё
     }
     return false;
 }
 
-// Перегрузка оператора + для размножения животных
+// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° + РґР»СЏ СЂР°Р·РјРЅРѕР¶РµРЅРёСЏ Р¶РёРІРѕС‚РЅС‹С…
 Animal* Animal::operator+(Animal& partner) {
-    // Проверка: животные должны быть одного вида
+    // РџСЂРѕРІРµСЂРєР°: Р¶РёРІРѕС‚РЅС‹Рµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РѕРґРЅРѕРіРѕ РІРёРґР°
     if (species != partner.getSpecies()) {
-        std::cerr << "Ошибка: Разные виды животных не могут размножаться!\n";
+        std::cerr << "РћС€РёР±РєР°: Р Р°Р·РЅС‹Рµ РІРёРґС‹ Р¶РёРІРѕС‚РЅС‹С… РЅРµ РјРѕРіСѓС‚ СЂР°Р·РјРЅРѕР¶Р°С‚СЊСЃСЏ!\n";
         return nullptr;
     }
 
-    // Проверка: животные должны быть разнополыми
+    // РџСЂРѕРІРµСЂРєР°: Р¶РёРІРѕС‚РЅС‹Рµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СЂР°Р·РЅРѕРїРѕР»С‹РјРё
     if (gender == partner.getGender()) {
-        std::cerr << "Ошибка: Однополое размножение невозможно!\n";
+        std::cerr << "РћС€РёР±РєР°: РћРґРЅРѕРїРѕР»РѕРµ СЂР°Р·РјРЅРѕР¶РµРЅРёРµ РЅРµРІРѕР·РјРѕР¶РЅРѕ!\n";
         return nullptr;
     }
 
-    // Проверка: животные должны быть старше 5 дней
+    // РџСЂРѕРІРµСЂРєР°: Р¶РёРІРѕС‚РЅС‹Рµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СЃС‚Р°СЂС€Рµ 5 РґРЅРµР№
     if (ageInDays < 5 || partner.getAgeInDays() < 5) {
-        std::cerr << "Ошибка: Животные должны быть старше 5 дней для размножения!\n";
+        std::cerr << "РћС€РёР±РєР°: Р–РёРІРѕС‚РЅС‹Рµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СЃС‚Р°СЂС€Рµ 5 РґРЅРµР№ РґР»СЏ СЂР°Р·РјРЅРѕР¶РµРЅРёСЏ!\n";
         return nullptr;
     }
 
-    // Генерация пола потомка
+    // Р“РµРЅРµСЂР°С†РёСЏ РїРѕР»Р° РїРѕС‚РѕРјРєР°
     Gender childGender = (std::rand() % 2 == 0) ? Gender::MALE : Gender::FEMALE;
 
-    // Создание нового животного
-    Animal* child = new Animal("Безымянный", species, childGender, 0, -1, preferredClimate, price, type, true);
-    child->parents = { ParentInfo(name, species, gender), ParentInfo(partner.getName(), partner.getSpecies(), partner.getGender()) }; // Сохраняем данные родителей
+    // РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ Р¶РёРІРѕС‚РЅРѕРіРѕ
+    Animal* child = new Animal("Р‘РµР·С‹РјСЏРЅРЅС‹Р№", species, childGender, 0, -1, preferredClimate, price, type, true);
+    child->parents = { ParentInfo(name, species, gender), ParentInfo(partner.getName(), partner.getSpecies(), partner.getGender()) }; // РЎРѕС…СЂР°РЅСЏРµРј РґР°РЅРЅС‹Рµ СЂРѕРґРёС‚РµР»РµР№
 
-    std::cout << "Новое животное родилось! Вид: " << species << "\n";
+    std::cout << "РќРѕРІРѕРµ Р¶РёРІРѕС‚РЅРѕРµ СЂРѕРґРёР»РѕСЃСЊ! Р’РёРґ: " << species << "\n";
 
     return child;
 }
 
-// Генерация случайного числа с плавающей точкой (Необходимо для случайной генерации веса животного)
+// Р“РµРЅРµСЂР°С†РёСЏ СЃР»СѓС‡Р°Р№РЅРѕРіРѕ С‡РёСЃР»Р° СЃ РїР»Р°РІР°СЋС‰РµР№ С‚РѕС‡РєРѕР№ (РќРµРѕР±С…РѕРґРёРјРѕ РґР»СЏ СЃР»СѓС‡Р°Р№РЅРѕР№ РіРµРЅРµСЂР°С†РёРё РІРµСЃР° Р¶РёРІРѕС‚РЅРѕРіРѕ)
 double Animal::generateRandomDouble(double min, double max) const {
     double f = (double)std::rand() / RAND_MAX;
     return min + f * (max - min);
 }
 
-// Изменение имени животного
+// РР·РјРµРЅРµРЅРёРµ РёРјРµРЅРё Р¶РёРІРѕС‚РЅРѕРіРѕ
 void Animal::setName(const std::string& newName) {
     name = newName;
-    std::cout << "Имя животного успешно изменено на: " << name << "\n";
+    std::cout << "РРјСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅРѕ РЅР°: " << name << "\n";
 }

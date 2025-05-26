@@ -6,44 +6,44 @@
 #include <cstdlib>
 #include <ctime>
 
-// Конструктор зоопарка
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р·РѕРѕРїР°СЂРєР°
 Zoo::Zoo(const std::string& zooName)
     : name(zooName), food(100), money(100000), popularity(10), currentDay(1), dailyAnimalPurchases(0) {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
 
     std::vector<Employee> employees;
     refreshPurchasePool();
-    std::cout << "Зоопарк \"" << name << "\" открыт!\n";
+    std::cout << "Р—РѕРѕРїР°СЂРє \"" << name << "\" РѕС‚РєСЂС‹С‚!\n";
 }
 
-// Деструктор зоопарка
+// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ Р·РѕРѕРїР°СЂРєР°
 Zoo::~Zoo() {
-    // Удаляем динамически созданных животных
+    // РЈРґР°Р»СЏРµРј РґРёРЅР°РјРёС‡РµСЃРєРё СЃРѕР·РґР°РЅРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…
     for (auto animal : animals) {
         delete animal;
     }
 }
 
-// Отображение состояния зоопарка
+// РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ Р·РѕРѕРїР°СЂРєР°
 void Zoo::displayStatus() const {
-    std::cout << "\n=== День " << currentDay << " ===\n";
-    std::cout << "Зоопарк: " << name << "\n";
-    std::cout << "Еда: " << food << "\n";
-    std::cout << "Деньги: " << money << "\n";
+    std::cout << "\n=== Р”РµРЅСЊ " << currentDay << " ===\n";
+    std::cout << "Р—РѕРѕРїР°СЂРє: " << name << "\n";
+    std::cout << "Р•РґР°: " << food << "\n";
+    std::cout << "Р”РµРЅСЊРіРё: " << money << "\n";
 
     if (currentDay == 1) {
-        // Популярность и посетители равны нулю на первый день
-        std::cout << "Популярность: 0\n";
-        std::cout << "Посетители: 0\n\n";
-        std::cout << "Первый день - это день до открытия зоопарка\nПодготовьтесь к открытию зоопарка:\nКупите животных\nНаймите больше сотрудников\nПриобретите рекламу\n";
+        // РџРѕРїСѓР»СЏСЂРЅРѕСЃС‚СЊ Рё РїРѕСЃРµС‚РёС‚РµР»Рё СЂР°РІРЅС‹ РЅСѓР»СЋ РЅР° РїРµСЂРІС‹Р№ РґРµРЅСЊ
+        std::cout << "РџРѕРїСѓР»СЏСЂРЅРѕСЃС‚СЊ: 0\n";
+        std::cout << "РџРѕСЃРµС‚РёС‚РµР»Рё: 0\n\n";
+        std::cout << "РџРµСЂРІС‹Р№ РґРµРЅСЊ - СЌС‚Рѕ РґРµРЅСЊ РґРѕ РѕС‚РєСЂС‹С‚РёСЏ Р·РѕРѕРїР°СЂРєР°\nРџРѕРґРіРѕС‚РѕРІСЊС‚РµСЃСЊ Рє РѕС‚РєСЂС‹С‚РёСЋ Р·РѕРѕРїР°СЂРєР°:\nРљСѓРїРёС‚Рµ Р¶РёРІРѕС‚РЅС‹С…\nРќР°Р№РјРёС‚Рµ Р±РѕР»СЊС€Рµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ\nРџСЂРёРѕР±СЂРµС‚РёС‚Рµ СЂРµРєР»Р°РјСѓ\n";
     }
     else {
-        std::cout << "Популярность: " << popularity << "\n";
-        std::cout << "Количество животных: " << totalAnimalCount() << "\n";
+        std::cout << "РџРѕРїСѓР»СЏСЂРЅРѕСЃС‚СЊ: " << popularity << "\n";
+        std::cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ Р¶РёРІРѕС‚РЅС‹С…: " << totalAnimalCount() << "\n";
 
         int visitors = 2 * popularity;
 
-        // Учитываем наличие водоплавающих животных (аквоидов)
+        // РЈС‡РёС‚С‹РІР°РµРј РЅР°Р»РёС‡РёРµ РІРѕРґРѕРїР»Р°РІР°СЋС‰РёС… Р¶РёРІРѕС‚РЅС‹С… (Р°РєРІРѕРёРґРѕРІ)
         int aquaticCount = 0;
         for (auto animal : animals) {
             if (animal->getType() == AnimalType::AQUATIC) {
@@ -51,45 +51,45 @@ void Zoo::displayStatus() const {
             }
         }
         if (aquaticCount > 0) {
-            visitors *= (1 << aquaticCount); // Удвоение за каждого аквоида
+            visitors *= (1 << aquaticCount); // РЈРґРІРѕРµРЅРёРµ Р·Р° РєР°Р¶РґРѕРіРѕ Р°РєРІРѕРёРґР°
         }
         if (totalAnimalCount() == 0) {
             visitors = 0;
-            std::cout << "Посетители: " << visitors << "\n";
+            std::cout << "РџРѕСЃРµС‚РёС‚РµР»Рё: " << visitors << "\n";
         }
         else {
-            std::cout << "Посетители: " << visitors << "\n";
+            std::cout << "РџРѕСЃРµС‚РёС‚РµР»Рё: " << visitors << "\n";
         }
     }
 }
 
-// Отображение главного меню
+// РћС‚РѕР±СЂР°Р¶РµРЅРёРµ РіР»Р°РІРЅРѕРіРѕ РјРµРЅСЋ
 void Zoo::displayMenu() const {
-    std::cout << "\nВыберите действие:\n";
-    std::cout << "1. Менеджмент животных\n";
-    std::cout << "2. Менеджмент закупок (еда, реклама)\n";
-    std::cout << "3. Менеджмент построек (вольеры)\n";
-    std::cout << "4. Переход к следующему дню\n";
-    std::cout << "5. Менеджмент работников\n";
+    std::cout << "\nР’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ:\n";
+    std::cout << "1. РњРµРЅРµРґР¶РјРµРЅС‚ Р¶РёРІРѕС‚РЅС‹С…\n";
+    std::cout << "2. РњРµРЅРµРґР¶РјРµРЅС‚ Р·Р°РєСѓРїРѕРє (РµРґР°, СЂРµРєР»Р°РјР°)\n";
+    std::cout << "3. РњРµРЅРµРґР¶РјРµРЅС‚ РїРѕСЃС‚СЂРѕРµРє (РІРѕР»СЊРµСЂС‹)\n";
+    std::cout << "4. РџРµСЂРµС…РѕРґ Рє СЃР»РµРґСѓСЋС‰РµРјСѓ РґРЅСЋ\n";
+    std::cout << "5. РњРµРЅРµРґР¶РјРµРЅС‚ СЂР°Р±РѕС‚РЅРёРєРѕРІ\n";
 }
 
-// Обработка выбора пользователя
+// РћР±СЂР°Р±РѕС‚РєР° РІС‹Р±РѕСЂР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 void Zoo::processChoice() {
     int choice;
 
     while (true) {
-        std::cout << "Введите ваш выбор (1–5): ";
+        std::cout << "Р’РІРµРґРёС‚Рµ РІР°С€ РІС‹Р±РѕСЂ (1вЂ“5): ";
         std::cin >> choice;
 
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Ошибка ввода. Пожалуйста, введите целое число от 1 до 5.\n";
+            std::cout << "РћС€РёР±РєР° РІРІРѕРґР°. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ С†РµР»РѕРµ С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 5.\n";
             continue;
         }
 
         if (choice < 1 || choice > 5) {
-            std::cout << "Неверный ввод. Введите число от 1 до 5.\n";
+            std::cout << "РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ. Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 5.\n";
             continue;
         }
 
@@ -113,22 +113,22 @@ void Zoo::processChoice() {
         manageEmployees();
         break;
     default:
-        std::cout << "Неверный выбор. Введите число от 1 до 5.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ. Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 5.\n";
         break;
     }
 }
 
 void Zoo::manageAnimals() {
-    std::cout << "\nМенеджмент животных:\n";
-    std::cout << "1. Купить животное\n";
-    std::cout << "2. Продать животное\n";
-    std::cout << "3. Просмотреть всех животных\n";
-    std::cout << "4. Обновить пул животных\n";
-    std::cout << "5. Переименовать животное\n";
-    std::cout << "6. Размножение животных\n";
-    std::cout << "7. Лечение больных животных\n";
+    std::cout << "\nРњРµРЅРµРґР¶РјРµРЅС‚ Р¶РёРІРѕС‚РЅС‹С…:\n";
+    std::cout << "1. РљСѓРїРёС‚СЊ Р¶РёРІРѕС‚РЅРѕРµ\n";
+    std::cout << "2. РџСЂРѕРґР°С‚СЊ Р¶РёРІРѕС‚РЅРѕРµ\n";
+    std::cout << "3. РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ РІСЃРµС… Р¶РёРІРѕС‚РЅС‹С…\n";
+    std::cout << "4. РћР±РЅРѕРІРёС‚СЊ РїСѓР» Р¶РёРІРѕС‚РЅС‹С…\n";
+    std::cout << "5. РџРµСЂРµРёРјРµРЅРѕРІР°С‚СЊ Р¶РёРІРѕС‚РЅРѕРµ\n";
+    std::cout << "6. Р Р°Р·РјРЅРѕР¶РµРЅРёРµ Р¶РёРІРѕС‚РЅС‹С…\n";
+    std::cout << "7. Р›РµС‡РµРЅРёРµ Р±РѕР»СЊРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…\n";
 
-    std::cout << "Ваш выбор: ";
+    std::cout << "Р’Р°С€ РІС‹Р±РѕСЂ: ";
     int choice;
     std::cin >> choice;
 
@@ -155,29 +155,29 @@ void Zoo::manageAnimals() {
         healAnimal();
         break;
     default:
-        std::cout << "Неверный выбор.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ.\n";
         break;
     }
 }
 
 const std::vector<AnimalInfo> Zoo::animalOptions = {
-    {"Лев", "Лев", 150, AnimalType::CARNIVORE, "Саванна"},
-    {"Тигр", "Тигр", 180, AnimalType::CARNIVORE, "Тропики"},
-    {"Медведь", "Медведь", 200, AnimalType::CARNIVORE, "Лес"},
-    {"Слон", "Слон", 200, AnimalType::HERBIVORE, "Тропики"},
-    {"Жираф", "Жираф", 170, AnimalType::HERBIVORE, "Саванна"},
-    {"Зебра", "Зебра", 160, AnimalType::HERBIVORE, "Саванна"},
-    {"Дельфин", "Дельфин", 300, AnimalType::AQUATIC, "Океан"},
-    {"Аквариус", "Аквариус", 250, AnimalType::AQUATIC, "Пресная вода"},
-    {"Кит", "Кит", 400, AnimalType::AQUATIC, "Океан"}
+    {"Р›РµРІ", "Р›РµРІ", 150, AnimalType::CARNIVORE, "РЎР°РІР°РЅРЅР°"},
+    {"РўРёРіСЂ", "РўРёРіСЂ", 180, AnimalType::CARNIVORE, "РўСЂРѕРїРёРєРё"},
+    {"РњРµРґРІРµРґСЊ", "РњРµРґРІРµРґСЊ", 200, AnimalType::CARNIVORE, "Р›РµСЃ"},
+    {"РЎР»РѕРЅ", "РЎР»РѕРЅ", 200, AnimalType::HERBIVORE, "РўСЂРѕРїРёРєРё"},
+    {"Р–РёСЂР°С„", "Р–РёСЂР°С„", 170, AnimalType::HERBIVORE, "РЎР°РІР°РЅРЅР°"},
+    {"Р—РµР±СЂР°", "Р—РµР±СЂР°", 160, AnimalType::HERBIVORE, "РЎР°РІР°РЅРЅР°"},
+    {"Р”РµР»СЊС„РёРЅ", "Р”РµР»СЊС„РёРЅ", 300, AnimalType::AQUATIC, "РћРєРµР°РЅ"},
+    {"РђРєРІР°СЂРёСѓСЃ", "РђРєРІР°СЂРёСѓСЃ", 250, AnimalType::AQUATIC, "РџСЂРµСЃРЅР°СЏ РІРѕРґР°"},
+    {"РљРёС‚", "РљРёС‚", 400, AnimalType::AQUATIC, "РћРєРµР°РЅ"}
 };
 
-// Менеджмент закупок
+// РњРµРЅРµРґР¶РјРµРЅС‚ Р·Р°РєСѓРїРѕРє
 void Zoo::manageProcurements() {
-    std::cout << "\nМенеджмент закупок:\n";
-    std::cout << "1. Купить еду\n";
-    std::cout << "2. Реклама (увеличение популярности)\n";
-    std::cout << "Ваш выбор: ";
+    std::cout << "\nРњРµРЅРµРґР¶РјРµРЅС‚ Р·Р°РєСѓРїРѕРє:\n";
+    std::cout << "1. РљСѓРїРёС‚СЊ РµРґСѓ\n";
+    std::cout << "2. Р РµРєР»Р°РјР° (СѓРІРµР»РёС‡РµРЅРёРµ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё)\n";
+    std::cout << "Р’Р°С€ РІС‹Р±РѕСЂ: ";
     int choice;
     std::cin >> choice;
     std::cin.ignore();
@@ -187,15 +187,15 @@ void Zoo::manageProcurements() {
     else if (choice == 2)
         advertise();
     else
-        std::cout << "Неверный выбор.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ.\n";
 }
 
-// Менеджмент построек
+// РњРµРЅРµРґР¶РјРµРЅС‚ РїРѕСЃС‚СЂРѕРµРє
 void Zoo::manageBuildings() {
-    std::cout << "\nМенеджмент построек:\n";
-    std::cout << "1. Купить вольер\n";
-    std::cout << "2. Просмотреть информацию о вольерах\n";
-    std::cout << "Ваш выбор: ";
+    std::cout << "\nРњРµРЅРµРґР¶РјРµРЅС‚ РїРѕСЃС‚СЂРѕРµРє:\n";
+    std::cout << "1. РљСѓРїРёС‚СЊ РІРѕР»СЊРµСЂ\n";
+    std::cout << "2. РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РІРѕР»СЊРµСЂР°С…\n";
+    std::cout << "Р’Р°С€ РІС‹Р±РѕСЂ: ";
     int choice;
     std::cin >> choice;
     std::cin.ignore();
@@ -207,21 +207,21 @@ void Zoo::manageBuildings() {
         displayEnclosureInfo();
     }
     else {
-        std::cout << "Неверный выбор. Попробуйте ещё раз.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ. РџРѕРїСЂРѕР±СѓР№С‚Рµ РµС‰С‘ СЂР°Р·.\n";
     }
 }
 
 void Zoo::listAnimals() const {
     if (animals.empty()) {
-        std::cout << "В зоопарке нет животных.\n";
+        std::cout << "Р’ Р·РѕРѕРїР°СЂРєРµ РЅРµС‚ Р¶РёРІРѕС‚РЅС‹С….\n";
         return;
     }
 
-    std::cout << "\n--- Список животных ---\n";
+    std::cout << "\n--- РЎРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С… ---\n";
     for (size_t i = 0; i < animals.size(); ++i) {
         const Animal* animal = animals[i];
 
-        // Проверяем, больное ли животное
+        // РџСЂРѕРІРµСЂСЏРµРј, Р±РѕР»СЊРЅРѕРµ Р»Рё Р¶РёРІРѕС‚РЅРѕРµ
         bool isSick = false;
         int daysSick = 0;
         for (const auto& sickAnimal : sickAnimals) {
@@ -232,62 +232,62 @@ void Zoo::listAnimals() const {
             }
         }
 
-        std::cout << i + 1 << ". Имя: " << animal->getName()
-            << " (Вид: " << animal->getSpecies()
-            << ", Пол: " << (animal->getGender() == Gender::MALE ? "Мужской" : "Женский")
-            << ", Возраст: " << animal->getAgeInDays() << " дней)\n"
-            << "   Тип: " << (animal->getType() == AnimalType::CARNIVORE ? "Хищник" :
-                animal->getType() == AnimalType::HERBIVORE ? "Травоядное" : "Водоплавающее") << "\n"
-            << "   Вес: " << animal->getWeight() << " кг\n"
-            << "   Климат: " << animal->getPreferredClimate() << "\n";
+        std::cout << i + 1 << ". РРјСЏ: " << animal->getName()
+            << " (Р’РёРґ: " << animal->getSpecies()
+            << ", РџРѕР»: " << (animal->getGender() == Gender::MALE ? "РњСѓР¶СЃРєРѕР№" : "Р–РµРЅСЃРєРёР№")
+            << ", Р’РѕР·СЂР°СЃС‚: " << animal->getAgeInDays() << " РґРЅРµР№)\n"
+            << "   РўРёРї: " << (animal->getType() == AnimalType::CARNIVORE ? "РҐРёС‰РЅРёРє" :
+                animal->getType() == AnimalType::HERBIVORE ? "РўСЂР°РІРѕСЏРґРЅРѕРµ" : "Р’РѕРґРѕРїР»Р°РІР°СЋС‰РµРµ") << "\n"
+            << "   Р’РµСЃ: " << animal->getWeight() << " РєРі\n"
+            << "   РљР»РёРјР°С‚: " << animal->getPreferredClimate() << "\n";
 
-        // Отображение родителей только если животное родилось в зоопарке
+        // РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЂРѕРґРёС‚РµР»РµР№ С‚РѕР»СЊРєРѕ РµСЃР»Рё Р¶РёРІРѕС‚РЅРѕРµ СЂРѕРґРёР»РѕСЃСЊ РІ Р·РѕРѕРїР°СЂРєРµ
         if (animal->wasBornInZoo()) {
             const auto& parents = animal->getParents();
-            std::cout << "   Родители: "
-                << parents.first.name << " (" << parents.first.species << ", Пол: " << (parents.first.gender == Gender::MALE ? "Мужской" : "Женский") << ") и "
-                << parents.second.name << " (" << parents.second.species << ", Пол: " << (parents.second.gender == Gender::MALE ? "Мужской" : "Женский") << ")\n";
+            std::cout << "   Р РѕРґРёС‚РµР»Рё: "
+                << parents.first.name << " (" << parents.first.species << ", РџРѕР»: " << (parents.first.gender == Gender::MALE ? "РњСѓР¶СЃРєРѕР№" : "Р–РµРЅСЃРєРёР№") << ") Рё "
+                << parents.second.name << " (" << parents.second.species << ", РџРѕР»: " << (parents.second.gender == Gender::MALE ? "РњСѓР¶СЃРєРѕР№" : "Р–РµРЅСЃРєРёР№") << ")\n";
         }
 
-        // Вывод отметки, если животное больное
+        // Р’С‹РІРѕРґ РѕС‚РјРµС‚РєРё, РµСЃР»Рё Р¶РёРІРѕС‚РЅРѕРµ Р±РѕР»СЊРЅРѕРµ
         if (isSick) {
-            std::cout << "БОЛЬНО!(Болеет уже " << daysSick << " дней) Срочно требуется лечение!\n";
+            std::cout << "Р‘РћР›Р¬РќРћ!(Р‘РѕР»РµРµС‚ СѓР¶Рµ " << daysSick << " РґРЅРµР№) РЎСЂРѕС‡РЅРѕ С‚СЂРµР±СѓРµС‚СЃСЏ Р»РµС‡РµРЅРёРµ!\n";
         }
     }
 }
 
 
 void Zoo::buyAnimal() {
-    while (true) { // Цикл, чтобы после обновления снова показывать пул
+    while (true) { // Р¦РёРєР», С‡С‚РѕР±С‹ РїРѕСЃР»Рµ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃРЅРѕРІР° РїРѕРєР°Р·С‹РІР°С‚СЊ РїСѓР»
         if (currentDay > 10 && dailyAnimalPurchases >= 1) {
-            std::cout << "После 10-го дня можно покупать только одно животное в день.\n";
+            std::cout << "РџРѕСЃР»Рµ 10-РіРѕ РґРЅСЏ РјРѕР¶РЅРѕ РїРѕРєСѓРїР°С‚СЊ С‚РѕР»СЊРєРѕ РѕРґРЅРѕ Р¶РёРІРѕС‚РЅРѕРµ РІ РґРµРЅСЊ.\n";
             return;
         }
 
         if (purchasePool.empty()) {
-            std::cout << "Нет доступных животных для покупки. Обновите пул.\n";
+            std::cout << "РќРµС‚ РґРѕСЃС‚СѓРїРЅС‹С… Р¶РёРІРѕС‚РЅС‹С… РґР»СЏ РїРѕРєСѓРїРєРё. РћР±РЅРѕРІРёС‚Рµ РїСѓР».\n";
             return;
         }
 
-        std::cout << "\nДоступные животные для покупки:\n";
+        std::cout << "\nР”РѕСЃС‚СѓРїРЅС‹Рµ Р¶РёРІРѕС‚РЅС‹Рµ РґР»СЏ РїРѕРєСѓРїРєРё:\n";
         for (size_t i = 0; i < purchasePool.size(); ++i) {
             Animal* animal = purchasePool[i];
             std::cout << i + 1 << ". " << animal->getName()
-                << " (Пол: " << (animal->getGender() == Gender::MALE ? "Мужской" : "Женский")
-                << ", Цена: " << animal->getPrice()
-                << ", Тип: " << (animal->getType() == AnimalType::CARNIVORE ? "Хищник" :
-                    animal->getType() == AnimalType::HERBIVORE ? "Травоядное" : "Водоплавающее")
-                << ", Климат: " << animal->getPreferredClimate() << ")\n";
+                << " (РџРѕР»: " << (animal->getGender() == Gender::MALE ? "РњСѓР¶СЃРєРѕР№" : "Р–РµРЅСЃРєРёР№")
+                << ", Р¦РµРЅР°: " << animal->getPrice()
+                << ", РўРёРї: " << (animal->getType() == AnimalType::CARNIVORE ? "РҐРёС‰РЅРёРє" :
+                    animal->getType() == AnimalType::HERBIVORE ? "РўСЂР°РІРѕСЏРґРЅРѕРµ" : "Р’РѕРґРѕРїР»Р°РІР°СЋС‰РµРµ")
+                << ", РљР»РёРјР°С‚: " << animal->getPreferredClimate() << ")\n";
         }
 
-        std::cout << "0. Обновить пул животных (стоимость: 100 монет)\n";
+        std::cout << "0. РћР±РЅРѕРІРёС‚СЊ РїСѓР» Р¶РёРІРѕС‚РЅС‹С… (СЃС‚РѕРёРјРѕСЃС‚СЊ: 100 РјРѕРЅРµС‚)\n";
 
         int choice;
         std::cin >> choice;
 
-        if (choice == 0) { // Обновление пула
+        if (choice == 0) { // РћР±РЅРѕРІР»РµРЅРёРµ РїСѓР»Р°
             if (money < 100) {
-                std::cout << "Недостаточно денег для обновления пула животных.\n";
+                std::cout << "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ РїСѓР»Р° Р¶РёРІРѕС‚РЅС‹С….\n";
                 return;
             }
             money -= 100;
@@ -296,13 +296,13 @@ void Zoo::buyAnimal() {
         }
 
         if (choice < 1 || choice > purchasePool.size()) {
-            std::cout << "Неверный выбор. Попробуйте снова.\n";
+            std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ. РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
             continue;
         }
 
         Animal* selectedAnimal = purchasePool[choice - 1];
         if (money < selectedAnimal->getPrice()) {
-            std::cout << "Недостаточно денег.\n";
+            std::cout << "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі.\n";
             return;
         }
 
@@ -318,30 +318,30 @@ void Zoo::buyAnimal() {
         }
 
         if (!enclosureAvailable) {
-            std::cout << "Нет подходящего вольера для этого животного.\n";
+            std::cout << "РќРµС‚ РїРѕРґС…РѕРґСЏС‰РµРіРѕ РІРѕР»СЊРµСЂР° РґР»СЏ СЌС‚РѕРіРѕ Р¶РёРІРѕС‚РЅРѕРіРѕ.\n";
             return;
         }
 
         money -= selectedAnimal->getPrice();
         animals.push_back(selectedAnimal);
-        purchasePool.erase(purchasePool.begin() + choice - 1); // Убираем из пула
+        purchasePool.erase(purchasePool.begin() + choice - 1); // РЈР±РёСЂР°РµРј РёР· РїСѓР»Р°
         dailyAnimalPurchases++;
-        std::cout << "Вы купили " << selectedAnimal->getName() << " (" << (selectedAnimal->getGender() == Gender::MALE ? "Мужской" : "Женский") << ").\n";
+        std::cout << "Р’С‹ РєСѓРїРёР»Рё " << selectedAnimal->getName() << " (" << (selectedAnimal->getGender() == Gender::MALE ? "РњСѓР¶СЃРєРѕР№" : "Р–РµРЅСЃРєРёР№") << ").\n";
         return;
     }
 }
 
-// Продажа животного
+// РџСЂРѕРґР°Р¶Р° Р¶РёРІРѕС‚РЅРѕРіРѕ
 void Zoo::sellAnimal() {
     if (animals.empty()) {
-        std::cout << "\nВ зоопарке нет животных для продажи.\n";
+        std::cout << "\nР’ Р·РѕРѕРїР°СЂРєРµ РЅРµС‚ Р¶РёРІРѕС‚РЅС‹С… РґР»СЏ РїСЂРѕРґР°Р¶Рё.\n";
         return;
     }
 
-    std::cout << "\n--- Продажа животного ---\n";
+    std::cout << "\n--- РџСЂРѕРґР°Р¶Р° Р¶РёРІРѕС‚РЅРѕРіРѕ ---\n";
     for (size_t i = 0; i < animals.size(); ++i) {
         std::cout << i + 1 << ". " << animals[i]->getName()
-            << " (Цена: " << animals[i]->getPrice() << ")\n";
+            << " (Р¦РµРЅР°: " << animals[i]->getPrice() << ")\n";
     }
 
     int index;
@@ -349,7 +349,7 @@ void Zoo::sellAnimal() {
     std::cin.ignore();
 
     if (index < 1 || index > animals.size()) {
-        std::cout << "Неверный выбор.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ.\n";
         return;
     }
 
@@ -363,43 +363,43 @@ void Zoo::sellAnimal() {
     }
     delete animals[index - 1];
     animals.erase(animals.begin() + index - 1);
-    std::cout << "Животное продано.\n";
+    std::cout << "Р–РёРІРѕС‚РЅРѕРµ РїСЂРѕРґР°РЅРѕ.\n";
 }
 
 void Zoo::buyFood() {
-    std::cout << "\n--- Покупка еды ---\n";
-    std::cout << "Введите количество единиц еды (1 ед. = 1 денежная единица): ";
+    std::cout << "\n--- РџРѕРєСѓРїРєР° РµРґС‹ ---\n";
+    std::cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РµРґРёРЅРёС† РµРґС‹ (1 РµРґ. = 1 РґРµРЅРµР¶РЅР°СЏ РµРґРёРЅРёС†Р°): ";
     int amount;
     std::cin >> amount;
     std::cin.ignore();
 
     if (money < amount) {
-        std::cout << "Недостаточно денег для покупки еды.\n";
+        std::cout << "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі РґР»СЏ РїРѕРєСѓРїРєРё РµРґС‹.\n";
         return;
     }
 
     money -= amount;
     food += amount;
-    std::cout << "Куплено " << amount << " единиц еды.\n";
+    std::cout << "РљСѓРїР»РµРЅРѕ " << amount << " РµРґРёРЅРёС† РµРґС‹.\n";
 }
 
 void Zoo::advertise() {
-    std::cout << "\n--- Реклама ---\n";
-    std::cout << "Введите сумму, которую хотите потратить на рекламу: ";
+    std::cout << "\n--- Р РµРєР»Р°РјР° ---\n";
+    std::cout << "Р’РІРµРґРёС‚Рµ СЃСѓРјРјСѓ, РєРѕС‚РѕСЂСѓСЋ С…РѕС‚РёС‚Рµ РїРѕС‚СЂР°С‚РёС‚СЊ РЅР° СЂРµРєР»Р°РјСѓ: ";
     double cost;
     std::cin >> cost;
     std::cin.ignore();
 
     if (money < cost) {
-        std::cout << "Недостаточно денег для рекламы.\n";
+        std::cout << "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі РґР»СЏ СЂРµРєР»Р°РјС‹.\n";
         return;
     }
 
     money -= cost;
-    int increase = static_cast<int>(cost / 10); // Каждые 10 монет увеличивают популярность
+    int increase = static_cast<int>(cost / 10); // РљР°Р¶РґС‹Рµ 10 РјРѕРЅРµС‚ СѓРІРµР»РёС‡РёРІР°СЋС‚ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚СЊ
     popularity += increase;
 
-    std::cout << "Популярность будет увеличена на " << increase << " пунктов на следующий день.\n";
+    std::cout << "РџРѕРїСѓР»СЏСЂРЅРѕСЃС‚СЊ Р±СѓРґРµС‚ СѓРІРµР»РёС‡РµРЅР° РЅР° " << increase << " РїСѓРЅРєС‚РѕРІ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РґРµРЅСЊ.\n";
 }
 
 void Zoo::buyEnclosure() {
@@ -412,32 +412,32 @@ void Zoo::buyEnclosure() {
         {2, 25}, {4, 50}, {6, 75}, {8, 100}
     };
 
-    std::cout << "\nВыберите тип вольера:\n";
-    std::cout << "1. Для хищников\n";
-    std::cout << "2. Для травоядных\n";
-    std::cout << "3. Для водоплавающих\n";
+    std::cout << "\nР’С‹Р±РµСЂРёС‚Рµ С‚РёРї РІРѕР»СЊРµСЂР°:\n";
+    std::cout << "1. Р”Р»СЏ С…РёС‰РЅРёРєРѕРІ\n";
+    std::cout << "2. Р”Р»СЏ С‚СЂР°РІРѕСЏРґРЅС‹С…\n";
+    std::cout << "3. Р”Р»СЏ РІРѕРґРѕРїР»Р°РІР°СЋС‰РёС…\n";
     int typeChoice;
     std::cin >> typeChoice;
     std::cin.ignore();
 
     if (typeChoice < 1 || typeChoice > 3) {
-        std::cout << "Неверный выбор.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ.\n";
         return;
     }
 
     AnimalType type = (typeChoice == 1 ? AnimalType::CARNIVORE :
         (typeChoice == 2 ? AnimalType::HERBIVORE : AnimalType::AQUATIC));
 
-    // Создаём доступные климаты на основе типа вольера
+    // РЎРѕР·РґР°С‘Рј РґРѕСЃС‚СѓРїРЅС‹Рµ РєР»РёРјР°С‚С‹ РЅР° РѕСЃРЅРѕРІРµ С‚РёРїР° РІРѕР»СЊРµСЂР°
     std::vector<std::string> climates;
     if (type == AnimalType::CARNIVORE || type == AnimalType::HERBIVORE) {
-        climates = { "Саванна", "Тропики", "Лес" }; // Климат для наземных животных
+        climates = { "РЎР°РІР°РЅРЅР°", "РўСЂРѕРїРёРєРё", "Р›РµСЃ" }; // РљР»РёРјР°С‚ РґР»СЏ РЅР°Р·РµРјРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…
     }
     else if (type == AnimalType::AQUATIC) {
-        climates = { "Океан", "Пресная вода" }; // Климат для водоплавающих
+        climates = { "РћРєРµР°РЅ", "РџСЂРµСЃРЅР°СЏ РІРѕРґР°" }; // РљР»РёРјР°С‚ РґР»СЏ РІРѕРґРѕРїР»Р°РІР°СЋС‰РёС…
     }
 
-    std::cout << "\nВыберите климат для вольера:\n";
+    std::cout << "\nР’С‹Р±РµСЂРёС‚Рµ РєР»РёРјР°С‚ РґР»СЏ РІРѕР»СЊРµСЂР°:\n";
     for (size_t i = 0; i < climates.size(); ++i) {
         std::cout << i + 1 << ". " << climates[i] << "\n";
     }
@@ -447,21 +447,21 @@ void Zoo::buyEnclosure() {
     std::cin.ignore();
 
     if (climateChoice < 1 || climateChoice > climates.size()) {
-        std::cout << "Неверный выбор климата.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ РєР»РёРјР°С‚Р°.\n";
         return;
     }
 
     std::string climate = climates[climateChoice - 1];
 
-    std::cout << "\nВыберите вместимость вольера:\n";
+    std::cout << "\nР’С‹Р±РµСЂРёС‚Рµ РІРјРµСЃС‚РёРјРѕСЃС‚СЊ РІРѕР»СЊРµСЂР°:\n";
     for (size_t i = 0; i < options.size(); ++i) {
         double adjustedPrice = options[i].price;
         if (type == AnimalType::AQUATIC) {
-            adjustedPrice *= 2.0; // Увеличение стоимости для водоплавающих
+            adjustedPrice *= 2.0; // РЈРІРµР»РёС‡РµРЅРёРµ СЃС‚РѕРёРјРѕСЃС‚Рё РґР»СЏ РІРѕРґРѕРїР»Р°РІР°СЋС‰РёС…
         }
 
         std::cout << i + 1 << ". " << options[i].capacity
-            << " животных за " << adjustedPrice << " монет.\n";
+            << " Р¶РёРІРѕС‚РЅС‹С… Р·Р° " << adjustedPrice << " РјРѕРЅРµС‚.\n";
     }
 
     int optionChoice;
@@ -469,7 +469,7 @@ void Zoo::buyEnclosure() {
     std::cin.ignore();
 
     if (optionChoice < 1 || optionChoice > options.size()) {
-        std::cout << "Неверный выбор.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ.\n";
         return;
     }
 
@@ -481,62 +481,62 @@ void Zoo::buyEnclosure() {
     }
 
     if (money < finalPrice) {
-        std::cout << "Недостаточно денег для покупки вольера.\n";
+        std::cout << "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі РґР»СЏ РїРѕРєСѓРїРєРё РІРѕР»СЊРµСЂР°.\n";
         return;
     }
 
     money -= finalPrice;
     enclosures.push_back(Enclosure(selectedEnclosure.capacity, type, finalPrice, climate));
-    std::cout << "Вольер куплен.\n";
+    std::cout << "Р’РѕР»СЊРµСЂ РєСѓРїР»РµРЅ.\n";
 }
 
 
 void Zoo::nextDay() {
     int totalPopularityChange = 0;
-    std::cout << "\n--- Переход к следующему дню ---\n";
+    std::cout << "\n--- РџРµСЂРµС…РѕРґ Рє СЃР»РµРґСѓСЋС‰РµРјСѓ РґРЅСЋ ---\n";
 
-    // Первый день: пропускаем расчёты
+    // РџРµСЂРІС‹Р№ РґРµРЅСЊ: РїСЂРѕРїСѓСЃРєР°РµРј СЂР°СЃС‡С‘С‚С‹
     if (currentDay == 1) {
-        std::cout << "Первый день: расчёты не производятся.\n";
+        std::cout << "РџРµСЂРІС‹Р№ РґРµРЅСЊ: СЂР°СЃС‡С‘С‚С‹ РЅРµ РїСЂРѕРёР·РІРѕРґСЏС‚СЃСЏ.\n";
         currentDay++;
         return;
     }
 
-    // 1. Потребление еды: каждому животному нужна 1 единица еды
+    // 1. РџРѕС‚СЂРµР±Р»РµРЅРёРµ РµРґС‹: РєР°Р¶РґРѕРјСѓ Р¶РёРІРѕС‚РЅРѕРјСѓ РЅСѓР¶РЅР° 1 РµРґРёРЅРёС†Р° РµРґС‹
     int animalCount = totalAnimalCount();
     if (food >= animalCount) {
         food -= animalCount;
-        std::cout << "Все животные накормлены.\n";
+        std::cout << "Р’СЃРµ Р¶РёРІРѕС‚РЅС‹Рµ РЅР°РєРѕСЂРјР»РµРЅС‹.\n";
     }
     else {
         int unfed = animalCount - food;
         food = 0;
-        std::cout << unfed << " животных не получили еду.\n";
+        std::cout << unfed << " Р¶РёРІРѕС‚РЅС‹С… РЅРµ РїРѕР»СѓС‡РёР»Рё РµРґСѓ.\n";
 
-        // Удаление умерших животных от голода
+        // РЈРґР°Р»РµРЅРёРµ СѓРјРµСЂС€РёС… Р¶РёРІРѕС‚РЅС‹С… РѕС‚ РіРѕР»РѕРґР°
         int deaths = 0;
         for (auto it = animals.begin(); it != animals.end();) {
-            if (std::rand() % 100 < 50) { // 50% шанс смерти от голода
+            if (std::rand() % 100 < 50) { // 50% С€Р°РЅСЃ СЃРјРµСЂС‚Рё РѕС‚ РіРѕР»РѕРґР°
                 AnimalType type = (*it)->getType();
-                // Синхронизируем удаление с вольером
+                // РЎРёРЅС…СЂРѕРЅРёР·РёСЂСѓРµРј СѓРґР°Р»РµРЅРёРµ СЃ РІРѕР»СЊРµСЂРѕРј
                 for (auto& enc : enclosures) {
                     if (enc.getAllowedType() == type && enc.getCurrentCount() > 0) {
-                        enc.removeAnimal(); // Обновляем состояние вольера
+                        enc.removeAnimal(); // РћР±РЅРѕРІР»СЏРµРј СЃРѕСЃС‚РѕСЏРЅРёРµ РІРѕР»СЊРµСЂР°
                         break;
                     }
                 }
-                delete* it; // Удаляем объект животного из памяти
-                it = animals.erase(it); // Удаляем из списка
+                delete* it; // РЈРґР°Р»СЏРµРј РѕР±СЉРµРєС‚ Р¶РёРІРѕС‚РЅРѕРіРѕ РёР· РїР°РјСЏС‚Рё
+                it = animals.erase(it); // РЈРґР°Р»СЏРµРј РёР· СЃРїРёСЃРєР°
                 deaths++;
             }
             else {
-                ++it; // Переходим к следующему животному
+                ++it; // РџРµСЂРµС…РѕРґРёРј Рє СЃР»РµРґСѓСЋС‰РµРјСѓ Р¶РёРІРѕС‚РЅРѕРјСѓ
             }
         }
-        std::cout << deaths << " животных умерли от голода.\n";
+        std::cout << deaths << " Р¶РёРІРѕС‚РЅС‹С… СѓРјРµСЂР»Рё РѕС‚ РіРѕР»РѕРґР°.\n";
     }
 
-    // 2. Выплата зарплат сотрудникам
+    // 2. Р’С‹РїР»Р°С‚Р° Р·Р°СЂРїР»Р°С‚ СЃРѕС‚СЂСѓРґРЅРёРєР°Рј
     double totalSalaries = 0.0;
     for (const auto& emp : employees) {
         totalSalaries += emp.getSalary();
@@ -544,14 +544,14 @@ void Zoo::nextDay() {
 
     if (money >= totalSalaries) {
         money -= totalSalaries;
-        std::cout << "Выплачено зарплат: " << totalSalaries << "\n";
+        std::cout << "Р’С‹РїР»Р°С‡РµРЅРѕ Р·Р°СЂРїР»Р°С‚: " << totalSalaries << "\n";
     }
     else {
-        std::cout << "Недостаточно денег для оплаты зарплат! Баланс обнулён.\n";
+        std::cout << "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі РґР»СЏ РѕРїР»Р°С‚С‹ Р·Р°СЂРїР»Р°С‚! Р‘Р°Р»Р°РЅСЃ РѕР±РЅСѓР»С‘РЅ.\n";
         money = 0;
     }
 
-    // 3. Ежедневные расходы на вольеры
+    // 3. Р•Р¶РµРґРЅРµРІРЅС‹Рµ СЂР°СЃС…РѕРґС‹ РЅР° РІРѕР»СЊРµСЂС‹
     double totalMaintenance = 0.0;
     for (const auto& enc : enclosures) {
         totalMaintenance += enc.getDailyExpense();
@@ -559,14 +559,14 @@ void Zoo::nextDay() {
 
     if (money >= totalMaintenance) {
         money -= totalMaintenance;
-        std::cout << "Оплачены расходы за вольеры: " << totalMaintenance << "\n";
+        std::cout << "РћРїР»Р°С‡РµРЅС‹ СЂР°СЃС…РѕРґС‹ Р·Р° РІРѕР»СЊРµСЂС‹: " << totalMaintenance << "\n";
     }
     else {
-        std::cout << "Недостаточно денег для оплаты расходов за вольеры! Баланс обнулён.\n";
+        std::cout << "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі РґР»СЏ РѕРїР»Р°С‚С‹ СЂР°СЃС…РѕРґРѕРІ Р·Р° РІРѕР»СЊРµСЂС‹! Р‘Р°Р»Р°РЅСЃ РѕР±РЅСѓР»С‘РЅ.\n";
         money = 0;
     }
 
-    // 4. Проверка на наличие работников
+    // 4. РџСЂРѕРІРµСЂРєР° РЅР° РЅР°Р»РёС‡РёРµ СЂР°Р±РѕС‚РЅРёРєРѕРІ
     int availableVeterinarians = 0;
     int availableCleaners = 0;
     int availableFeeders = 0;
@@ -574,60 +574,60 @@ void Zoo::nextDay() {
     for (const auto& emp : employees) {
         switch (emp.getRole()) {
         case EmployeeRole::VETERINARIAN:
-            availableVeterinarians += 10; // Каждый ветеринар обслуживает до 10 животных
+            availableVeterinarians += 10; // РљР°Р¶РґС‹Р№ РІРµС‚РµСЂРёРЅР°СЂ РѕР±СЃР»СѓР¶РёРІР°РµС‚ РґРѕ 10 Р¶РёРІРѕС‚РЅС‹С…
             break;
         case EmployeeRole::CLEANER:
-            availableCleaners += 1; // Каждый уборщик обслуживает 1 вольер
+            availableCleaners += 1; // РљР°Р¶РґС‹Р№ СѓР±РѕСЂС‰РёРє РѕР±СЃР»СѓР¶РёРІР°РµС‚ 1 РІРѕР»СЊРµСЂ
             break;
         case EmployeeRole::FEEDER:
-            availableFeeders += 2; // Каждый кормильщик обслуживает 2 вольера
+            availableFeeders += 2; // РљР°Р¶РґС‹Р№ РєРѕСЂРјРёР»СЊС‰РёРє РѕР±СЃР»СѓР¶РёРІР°РµС‚ 2 РІРѕР»СЊРµСЂР°
             break;
         }
     }
 
-    // 5. Штрафы за нехватку работников
-    // Обработка нехватки уборщиков
+    // 5. РЁС‚СЂР°С„С‹ Р·Р° РЅРµС…РІР°С‚РєСѓ СЂР°Р±РѕС‚РЅРёРєРѕРІ
+    // РћР±СЂР°Р±РѕС‚РєР° РЅРµС…РІР°С‚РєРё СѓР±РѕСЂС‰РёРєРѕРІ
     int uncleanedEnclosures = enclosures.size() - availableCleaners;
     if (uncleanedEnclosures > 0) {
-        std::cout << uncleanedEnclosures << "Вольеров остались грязными!\n";
-        std::cout <<"Снижение популярности на:\n" << uncleanedEnclosures;
-        totalPopularityChange -= uncleanedEnclosures; // Снижение популярности
+        std::cout << uncleanedEnclosures << "Р’РѕР»СЊРµСЂРѕРІ РѕСЃС‚Р°Р»РёСЃСЊ РіСЂСЏР·РЅС‹РјРё!\n";
+        std::cout <<"РЎРЅРёР¶РµРЅРёРµ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё РЅР°:\n" << uncleanedEnclosures;
+        totalPopularityChange -= uncleanedEnclosures; // РЎРЅРёР¶РµРЅРёРµ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё
     }
 
-    // Обработка нехватки кормильщиков
+    // РћР±СЂР°Р±РѕС‚РєР° РЅРµС…РІР°С‚РєРё РєРѕСЂРјРёР»СЊС‰РёРєРѕРІ
     int animalsWithoutFoodCare = animalCount - (availableFeeders * 2);
     if (animalsWithoutFoodCare > 0) {
-        std::cout << animalsWithoutFoodCare << " животных остались голодными!\n";
-        std::cout << " Снижение популярности на:\n" << animalsWithoutFoodCare;
-        totalPopularityChange -= animalsWithoutFoodCare; // Снижение популярности
+        std::cout << animalsWithoutFoodCare << " Р¶РёРІРѕС‚РЅС‹С… РѕСЃС‚Р°Р»РёСЃСЊ РіРѕР»РѕРґРЅС‹РјРё!\n";
+        std::cout << " РЎРЅРёР¶РµРЅРёРµ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё РЅР°:\n" << animalsWithoutFoodCare;
+        totalPopularityChange -= animalsWithoutFoodCare; // РЎРЅРёР¶РµРЅРёРµ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё
 
         int deaths = 0;
         for (int i = 0; i < animalsWithoutFoodCare; ++i) {
-            if (std::rand() % 100 < 15) { // 15% шанс смерти
+            if (std::rand() % 100 < 15) { // 15% С€Р°РЅСЃ СЃРјРµСЂС‚Рё
                 for (auto it = animals.begin(); it != animals.end();) {
                     AnimalType type = (*it)->getType();
 
-                    // Удаляем животное из соответствующего вольера
+                    // РЈРґР°Р»СЏРµРј Р¶РёРІРѕС‚РЅРѕРµ РёР· СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРіРѕ РІРѕР»СЊРµСЂР°
                     for (auto& enc : enclosures) {
                         if (enc.getAllowedType() == type && enc.getCurrentCount() > 0) {
-                            enc.removeAnimal(); // Уменьшаем количество животных в вольере
+                            enc.removeAnimal(); // РЈРјРµРЅСЊС€Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ Р¶РёРІРѕС‚РЅС‹С… РІ РІРѕР»СЊРµСЂРµ
                             break;
                         }
                     }
 
-                    delete* it; // Освобождение памяти животного
-                    it = animals.erase(it); // Удаление из списка
+                    delete* it; // РћСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё Р¶РёРІРѕС‚РЅРѕРіРѕ
+                    it = animals.erase(it); // РЈРґР°Р»РµРЅРёРµ РёР· СЃРїРёСЃРєР°
                     deaths++;
                     break;
                 }
             }
         }
-        std::cout << deaths << " животных умерло.\n";
+        std::cout << deaths << " Р¶РёРІРѕС‚РЅС‹С… СѓРјРµСЂР»Рѕ.\n";
     }
 
-    // 6. Доход от посетителей
-    int finalVisitors = 0; // Если животных нет, посетителей быть не может
-    double income = 0;     // Если нет посетителей, доход равен 0
+    // 6. Р”РѕС…РѕРґ РѕС‚ РїРѕСЃРµС‚РёС‚РµР»РµР№
+    int finalVisitors = 0; // Р•СЃР»Рё Р¶РёРІРѕС‚РЅС‹С… РЅРµС‚, РїРѕСЃРµС‚РёС‚РµР»РµР№ Р±С‹С‚СЊ РЅРµ РјРѕР¶РµС‚
+    double income = 0;     // Р•СЃР»Рё РЅРµС‚ РїРѕСЃРµС‚РёС‚РµР»РµР№, РґРѕС…РѕРґ СЂР°РІРµРЅ 0
 
     if (animalCount > 0) {
         int baseVisitors = 2 * popularity;
@@ -639,71 +639,71 @@ void Zoo::nextDay() {
             }
         }
 
-        // Удвоение множителя за каждого аквоида
+        // РЈРґРІРѕРµРЅРёРµ РјРЅРѕР¶РёС‚РµР»СЏ Р·Р° РєР°Р¶РґРѕРіРѕ Р°РєРІРѕРёРґР°
         finalVisitors = baseVisitors * (1 << aquaticCount);
-        finalVisitors = std::max(finalVisitors, 1); // Минимум 1 посетитель при наличии животных
-        income = finalVisitors * std::max(animalCount, 1); // Доход зависит от посетителей и животных
+        finalVisitors = std::max(finalVisitors, 1); // РњРёРЅРёРјСѓРј 1 РїРѕСЃРµС‚РёС‚РµР»СЊ РїСЂРё РЅР°Р»РёС‡РёРё Р¶РёРІРѕС‚РЅС‹С…
+        income = finalVisitors * std::max(animalCount, 1); // Р”РѕС…РѕРґ Р·Р°РІРёСЃРёС‚ РѕС‚ РїРѕСЃРµС‚РёС‚РµР»РµР№ Рё Р¶РёРІРѕС‚РЅС‹С…
     }
     else {
-        std::cout << "В вашем зоопарке нет животных! Посетители не приходят.\n";
-        finalVisitors = 0; // Посетители отсутствуют
-        income = 0;        // Доход отсутствует
+        std::cout << "Р’ РІР°С€РµРј Р·РѕРѕРїР°СЂРєРµ РЅРµС‚ Р¶РёРІРѕС‚РЅС‹С…! РџРѕСЃРµС‚РёС‚РµР»Рё РЅРµ РїСЂРёС…РѕРґСЏС‚.\n";
+        finalVisitors = 0; // РџРѕСЃРµС‚РёС‚РµР»Рё РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚
+        income = 0;        // Р”РѕС…РѕРґ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚
     }
 
     money += income;
-    std::cout << "Количество посетителей: " << finalVisitors << "\n";
-    std::cout << "Доход от посетителей: " << income << " монет\n";
+    std::cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ РїРѕСЃРµС‚РёС‚РµР»РµР№: " << finalVisitors << "\n";
+    std::cout << "Р”РѕС…РѕРґ РѕС‚ РїРѕСЃРµС‚РёС‚РµР»РµР№: " << income << " РјРѕРЅРµС‚\n";
 
-    // 7. Генерация случайного бонуса популярности от посетителей
+    // 7. Р“РµРЅРµСЂР°С†РёСЏ СЃР»СѓС‡Р°Р№РЅРѕРіРѕ Р±РѕРЅСѓСЃР° РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё РѕС‚ РїРѕСЃРµС‚РёС‚РµР»РµР№
     int popularityBonus = 0;
     int photographers = 0, celebrities = 0, animalFans = 0;
-    int maxBonusEvents = 4; // Ограничение на количество бонусов за день
+    int maxBonusEvents = 4; // РћРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° РєРѕР»РёС‡РµСЃС‚РІРѕ Р±РѕРЅСѓСЃРѕРІ Р·Р° РґРµРЅСЊ
 
-    // Проверяем, будет ли вообще бонусное событие в этот день (50% шанс)
+    // РџСЂРѕРІРµСЂСЏРµРј, Р±СѓРґРµС‚ Р»Рё РІРѕРѕР±С‰Рµ Р±РѕРЅСѓСЃРЅРѕРµ СЃРѕР±С‹С‚РёРµ РІ СЌС‚РѕС‚ РґРµРЅСЊ (50% С€Р°РЅСЃ)
     if (std::rand() % 100 < 50) {
         for (int i = 0; i < finalVisitors && (photographers + celebrities + animalFans) < maxBonusEvents; ++i) {
             int visitorType = std::rand() % 100;
             if (visitorType < 0.5) {
-                popularityBonus += 5; // Знаменитость
+                popularityBonus += 5; // Р—РЅР°РјРµРЅРёС‚РѕСЃС‚СЊ
                 celebrities++;
             }
             else if (visitorType < 2) {
-                popularityBonus += 3;  // Фотограф
+                popularityBonus += 3;  // Р¤РѕС‚РѕРіСЂР°С„
                 photographers++;
             }
             else if (visitorType < 5) {
-                popularityBonus += 1;  // Обычный посетитель (редкий бонус)
+                popularityBonus += 1;  // РћР±С‹С‡РЅС‹Р№ РїРѕСЃРµС‚РёС‚РµР»СЊ (СЂРµРґРєРёР№ Р±РѕРЅСѓСЃ)
                 animalFans++;
             }
         }
     }
 
-    // Вывод краткой сводки (только если были события)
-    if (photographers > 0) std::cout << "Сегодня ваш зоопарк посетили " << photographers << " фотографа(ов), увеличив популярность на +" << photographers * 3 << "!\n";
-    if (celebrities > 0) std::cout << "Сегодня ваш зоопарк посетил " << celebrities << " знаменитость(ей)! +5 к популярности за каждого!\n";
-    if (animalFans > 0) std::cout << animalFans << " посетителя оказались фанатами животных, добавив +" << animalFans << " к популярности!\n";
+    // Р’С‹РІРѕРґ РєСЂР°С‚РєРѕР№ СЃРІРѕРґРєРё (С‚РѕР»СЊРєРѕ РµСЃР»Рё Р±С‹Р»Рё СЃРѕР±С‹С‚РёСЏ)
+    if (photographers > 0) std::cout << "РЎРµРіРѕРґРЅСЏ РІР°С€ Р·РѕРѕРїР°СЂРє РїРѕСЃРµС‚РёР»Рё " << photographers << " С„РѕС‚РѕРіСЂР°С„Р°(РѕРІ), СѓРІРµР»РёС‡РёРІ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚СЊ РЅР° +" << photographers * 3 << "!\n";
+    if (celebrities > 0) std::cout << "РЎРµРіРѕРґРЅСЏ РІР°С€ Р·РѕРѕРїР°СЂРє РїРѕСЃРµС‚РёР» " << celebrities << " Р·РЅР°РјРµРЅРёС‚РѕСЃС‚СЊ(РµР№)! +5 Рє РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё Р·Р° РєР°Р¶РґРѕРіРѕ!\n";
+    if (animalFans > 0) std::cout << animalFans << " РїРѕСЃРµС‚РёС‚РµР»СЏ РѕРєР°Р·Р°Р»РёСЃСЊ С„Р°РЅР°С‚Р°РјРё Р¶РёРІРѕС‚РЅС‹С…, РґРѕР±Р°РІРёРІ +" << animalFans << " Рє РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё!\n";
 
-    std::cout << "Общий бонус популярности от особых посетителей за день: " << popularityBonus << "\n";
-
-
+    std::cout << "РћР±С‰РёР№ Р±РѕРЅСѓСЃ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё РѕС‚ РѕСЃРѕР±С‹С… РїРѕСЃРµС‚РёС‚РµР»РµР№ Р·Р° РґРµРЅСЊ: " << popularityBonus << "\n";
 
 
 
-    // 8. Обновление пула животных для покупки
-    if (currentDay % 1 == 0) { // Обновляем пул ежедневно
+
+
+    // 8. РћР±РЅРѕРІР»РµРЅРёРµ РїСѓР»Р° Р¶РёРІРѕС‚РЅС‹С… РґР»СЏ РїРѕРєСѓРїРєРё
+    if (currentDay % 1 == 0) { // РћР±РЅРѕРІР»СЏРµРј РїСѓР» РµР¶РµРґРЅРµРІРЅРѕ
         refreshPurchasePool();
     }
 
-    // 9. Обновление возраста всех животных
+    // 9. РћР±РЅРѕРІР»РµРЅРёРµ РІРѕР·СЂР°СЃС‚Р° РІСЃРµС… Р¶РёРІРѕС‚РЅС‹С…
     int deathsByAge = 0;
     for (auto it = animals.begin(); it != animals.end();) {
-        (*it)->increaseAgeInDays(); // Увеличиваем возраст животного в днях
+        (*it)->increaseAgeInDays(); // РЈРІРµР»РёС‡РёРІР°РµРј РІРѕР·СЂР°СЃС‚ Р¶РёРІРѕС‚РЅРѕРіРѕ РІ РґРЅСЏС…
 
-        // Проверяем смерть животного после 10 дней
+        // РџСЂРѕРІРµСЂСЏРµРј СЃРјРµСЂС‚СЊ Р¶РёРІРѕС‚РЅРѕРіРѕ РїРѕСЃР»Рµ 10 РґРЅРµР№
         if ((*it)->checkDeathAfterTenDays()) {
-            std::cout << (*it)->getName() << " умер от старости.\n";
+            std::cout << (*it)->getName() << " СѓРјРµСЂ РѕС‚ СЃС‚Р°СЂРѕСЃС‚Рё.\n";
 
-            // Удаляем животное из соответствующего вольера
+            // РЈРґР°Р»СЏРµРј Р¶РёРІРѕС‚РЅРѕРµ РёР· СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРіРѕ РІРѕР»СЊРµСЂР°
             AnimalType type = (*it)->getType();
             for (auto& enc : enclosures) {
                 if (enc.getAllowedType() == type && enc.getCurrentCount() > 0) {
@@ -712,20 +712,20 @@ void Zoo::nextDay() {
                 }
             }
 
-            delete* it; // Освобождаем память
-            it = animals.erase(it); // Удаляем из списка
+            delete* it; // РћСЃРІРѕР±РѕР¶РґР°РµРј РїР°РјСЏС‚СЊ
+            it = animals.erase(it); // РЈРґР°Р»СЏРµРј РёР· СЃРїРёСЃРєР°
             deathsByAge++;
         }
         else {
-            ++it; // Переходим к следующему животному
+            ++it; // РџРµСЂРµС…РѕРґРёРј Рє СЃР»РµРґСѓСЋС‰РµРјСѓ Р¶РёРІРѕС‚РЅРѕРјСѓ
         }
     }
-    std::cout << deathsByAge << " животных умерли от старости.\n";
+    std::cout << deathsByAge << " Р¶РёРІРѕС‚РЅС‹С… СѓРјРµСЂР»Рё РѕС‚ СЃС‚Р°СЂРѕСЃС‚Рё.\n";
 
     dailyAnimalPurchases = 0;
     currentDay++;
 
-    // 10. Первичное заражение (10% шанс заражения случайного животного)
+    // 10. РџРµСЂРІРёС‡РЅРѕРµ Р·Р°СЂР°Р¶РµРЅРёРµ (10% С€Р°РЅСЃ Р·Р°СЂР°Р¶РµРЅРёСЏ СЃР»СѓС‡Р°Р№РЅРѕРіРѕ Р¶РёРІРѕС‚РЅРѕРіРѕ)
     if (std::rand() % 100 < 10) {
         std::vector<Animal*> healthyAnimals;
 
@@ -745,14 +745,14 @@ void Zoo::nextDay() {
 
             if (exists == sickAnimals.end()) {
                 sickAnimals.push_back({ randomAnimal, 0 });
-                std::cout << randomAnimal->getName() << " заразился тиаравирусом!\n";
+                std::cout << randomAnimal->getName() << " Р·Р°СЂР°Р·РёР»СЃСЏ С‚РёР°СЂР°РІРёСЂСѓСЃРѕРј!\n";
             }
         }
     }
 
 
 
-    // Проверяем наличие ветеринаров
+    // РџСЂРѕРІРµСЂСЏРµРј РЅР°Р»РёС‡РёРµ РІРµС‚РµСЂРёРЅР°СЂРѕРІ
     bool hasVeterinarian = false;
     for (const auto& employee : employees) {
         if (employee.getRole() == EmployeeRole::VETERINARIAN) {
@@ -761,21 +761,21 @@ void Zoo::nextDay() {
         }
     }
 
-    // 11. Распространение тиаравируса (только если животное болеет более 1 дня)
+    // 11. Р Р°СЃРїСЂРѕСЃС‚СЂР°РЅРµРЅРёРµ С‚РёР°СЂР°РІРёСЂСѓСЃР° (С‚РѕР»СЊРєРѕ РµСЃР»Рё Р¶РёРІРѕС‚РЅРѕРµ Р±РѕР»РµРµС‚ Р±РѕР»РµРµ 1 РґРЅСЏ)
     int newInfections = 0;
     std::vector<Animal*> newlyInfected;
     std::vector<Enclosure*> infectedEnclosures;
 
     for (auto& sickAnimal : sickAnimals) {
-        sickAnimal.daysSick++; // Увеличиваем количество дней болезни
+        sickAnimal.daysSick++; // РЈРІРµР»РёС‡РёРІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РґРЅРµР№ Р±РѕР»РµР·РЅРё
 
-        if (sickAnimal.daysSick >= 1) { //Заболевшее животное начинает заражать только после 1 дня болезни
+        if (sickAnimal.daysSick >= 1) { //Р—Р°Р±РѕР»РµРІС€РµРµ Р¶РёРІРѕС‚РЅРѕРµ РЅР°С‡РёРЅР°РµС‚ Р·Р°СЂР°Р¶Р°С‚СЊ С‚РѕР»СЊРєРѕ РїРѕСЃР»Рµ 1 РґРЅСЏ Р±РѕР»РµР·РЅРё
             for (auto& enclosure : enclosures) {
                 if (enclosure.getAllowedType() != sickAnimal.animal->getType()) continue;
 
                 std::vector<Animal*> healthyAnimals;
 
-                // Собираем здоровых животных в том же вольере
+                // РЎРѕР±РёСЂР°РµРј Р·РґРѕСЂРѕРІС‹С… Р¶РёРІРѕС‚РЅС‹С… РІ С‚РѕРј Р¶Рµ РІРѕР»СЊРµСЂРµ
                 for (auto& animal : animals) {
                     bool alreadySick = std::any_of(sickAnimals.begin(), sickAnimals.end(),
                         [&](const SickAnimal& sick) { return sick.animal == animal; });
@@ -785,9 +785,9 @@ void Zoo::nextDay() {
                     }
                 }
 
-                // Определяем сколько новых животных заразятся
+                // РћРїСЂРµРґРµР»СЏРµРј СЃРєРѕР»СЊРєРѕ РЅРѕРІС‹С… Р¶РёРІРѕС‚РЅС‹С… Р·Р°СЂР°Р·СЏС‚СЃСЏ
                 if (!healthyAnimals.empty()) {
-                    int infectionRate = hasVeterinarian ? 2 : 3; // Без ветеринара заражаются 3
+                    int infectionRate = hasVeterinarian ? 2 : 3; // Р‘РµР· РІРµС‚РµСЂРёРЅР°СЂР° Р·Р°СЂР°Р¶Р°СЋС‚СЃСЏ 3
                     int toInfect = std::min(infectionRate, (int)healthyAnimals.size());
 
                     for (int i = 0; i < toInfect; ++i) {
@@ -798,18 +798,18 @@ void Zoo::nextDay() {
         }
     }
 
-    // Добавляем новых заражённых в список (на следующий день)
+    // Р”РѕР±Р°РІР»СЏРµРј РЅРѕРІС‹С… Р·Р°СЂР°Р¶С‘РЅРЅС‹С… РІ СЃРїРёСЃРѕРє (РЅР° СЃР»РµРґСѓСЋС‰РёР№ РґРµРЅСЊ)
     for (auto& animal : newlyInfected) {
         auto exists = std::find_if(sickAnimals.begin(), sickAnimals.end(),
             [&](const SickAnimal& sick) { return sick.animal == animal; });
 
         if (exists == sickAnimals.end()) {
             sickAnimals.push_back({ animal, 0 });
-            std::cout << animal->getName() << " заразился тиаравирусом!\n";
+            std::cout << animal->getName() << " Р·Р°СЂР°Р·РёР»СЃСЏ С‚РёР°СЂР°РІРёСЂСѓСЃРѕРј!\n";
         }
     }
 
-    // Проверяем критический уровень заражения в вольерах
+    // РџСЂРѕРІРµСЂСЏРµРј РєСЂРёС‚РёС‡РµСЃРєРёР№ СѓСЂРѕРІРµРЅСЊ Р·Р°СЂР°Р¶РµРЅРёСЏ РІ РІРѕР»СЊРµСЂР°С…
     for (auto& enclosure : infectedEnclosures) {
         std::vector<Animal*> infectedAnimals;
         for (auto& animal : animals) {
@@ -822,11 +822,11 @@ void Zoo::nextDay() {
         }
 
         if (infectedAnimals.size() > enclosure->getCurrentCount() / 2) {
-            std::cout << "Внимание! В вольере " << enclosure->getClimate() << " погибли животные от тиаравируса!\n";
+            std::cout << "Р’РЅРёРјР°РЅРёРµ! Р’ РІРѕР»СЊРµСЂРµ " << enclosure->getClimate() << " РїРѕРіРёР±Р»Рё Р¶РёРІРѕС‚РЅС‹Рµ РѕС‚ С‚РёР°СЂР°РІРёСЂСѓСЃР°!\n";
 
             for (int i = 0; i < std::min((int)infectedAnimals.size(), 2); ++i) {
                 Animal* dyingAnimal = infectedAnimals.back();
-                infectedAnimals.pop_back(); // Удаляем из списка заражённых перед удалением объекта
+                infectedAnimals.pop_back(); // РЈРґР°Р»СЏРµРј РёР· СЃРїРёСЃРєР° Р·Р°СЂР°Р¶С‘РЅРЅС‹С… РїРµСЂРµРґ СѓРґР°Р»РµРЅРёРµРј РѕР±СЉРµРєС‚Р°
 
                 sickAnimals.erase(std::remove_if(sickAnimals.begin(), sickAnimals.end(),
                     [&](const SickAnimal& s) { return s.animal == dyingAnimal; }),
@@ -838,16 +838,16 @@ void Zoo::nextDay() {
         }
     }
 
-    // Популярность снижается за каждое больное животное
+    // РџРѕРїСѓР»СЏСЂРЅРѕСЃС‚СЊ СЃРЅРёР¶Р°РµС‚СЃСЏ Р·Р° РєР°Р¶РґРѕРµ Р±РѕР»СЊРЅРѕРµ Р¶РёРІРѕС‚РЅРѕРµ
     totalPopularityChange -= sickAnimals.size();
 
-    // 12. Изменение популярности (учёт бонусов, болезней и случайных изменений)
+    // 12. РР·РјРµРЅРµРЅРёРµ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё (СѓС‡С‘С‚ Р±РѕРЅСѓСЃРѕРІ, Р±РѕР»РµР·РЅРµР№ Рё СЃР»СѓС‡Р°Р№РЅС‹С… РёР·РјРµРЅРµРЅРёР№)
 
-    // Уменьшение популярности за больных животных
+    // РЈРјРµРЅСЊС€РµРЅРёРµ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё Р·Р° Р±РѕР»СЊРЅС‹С… Р¶РёРІРѕС‚РЅС‹С…
     int illnessPenalty = sickAnimals.size();
     totalPopularityChange -= illnessPenalty;
 
-    // Добавление бонуса от посетителей
+    // Р”РѕР±Р°РІР»РµРЅРёРµ Р±РѕРЅСѓСЃР° РѕС‚ РїРѕСЃРµС‚РёС‚РµР»РµР№
     totalPopularityChange += popularityBonus;
 
     popularity += totalPopularityChange;
@@ -857,26 +857,26 @@ void Zoo::nextDay() {
 
     if (animalCount <= 0) {
         popularity = 1;
-        std::cout << "Популярность остаётся минимальной из-за отсутсвия животных\n";
+        std::cout << "РџРѕРїСѓР»СЏСЂРЅРѕСЃС‚СЊ РѕСЃС‚Р°С‘С‚СЃСЏ РјРёРЅРёРјР°Р»СЊРЅРѕР№ РёР·-Р·Р° РѕС‚СЃСѓС‚СЃРІРёСЏ Р¶РёРІРѕС‚РЅС‹С…\n";
         totalPopularityChange = 0;
     }
 
-    std::cout << "Итоговое изменение популярности за день: " << totalPopularityChange
-        << ", теперь она составляет " << popularity << ".\n";
+    std::cout << "РС‚РѕРіРѕРІРѕРµ РёР·РјРµРЅРµРЅРёРµ РїРѕРїСѓР»СЏСЂРЅРѕСЃС‚Рё Р·Р° РґРµРЅСЊ: " << totalPopularityChange
+        << ", С‚РµРїРµСЂСЊ РѕРЅР° СЃРѕСЃС‚Р°РІР»СЏРµС‚ " << popularity << ".\n";
 }
 
 void Zoo::manageEmployees() {
-    std::cout << "\nМенеджмент работников:\n";
-    std::cout << "1. Нанять работника\n";
-    std::cout << "2. Уволить работника\n";
-    std::cout << "3. Просмотреть список работников\n";
-    std::cout << "Ваш выбор: ";
+    std::cout << "\nРњРµРЅРµРґР¶РјРµРЅС‚ СЂР°Р±РѕС‚РЅРёРєРѕРІ:\n";
+    std::cout << "1. РќР°РЅСЏС‚СЊ СЂР°Р±РѕС‚РЅРёРєР°\n";
+    std::cout << "2. РЈРІРѕР»РёС‚СЊ СЂР°Р±РѕС‚РЅРёРєР°\n";
+    std::cout << "3. РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ СЃРїРёСЃРѕРє СЂР°Р±РѕС‚РЅРёРєРѕРІ\n";
+    std::cout << "Р’Р°С€ РІС‹Р±РѕСЂ: ";
     int choice;
     std::cin >> choice;
     if (std::cin.fail()) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Ошибка ввода. Попробуйте снова.\n";
+        std::cout << "РћС€РёР±РєР° РІРІРѕРґР°. РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
         return;
     }
 
@@ -891,7 +891,7 @@ void Zoo::manageEmployees() {
             listEmployees();
             return;
         default:
-            std::cout << "Неверный выбор.\n";
+            std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ.\n";
             break;
     }
 }
@@ -900,20 +900,20 @@ void Zoo::hireEmployee() {
     std::string name;
     int typeChoice;
 
-    std::cout << "Введите имя нового работника: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ РЅРѕРІРѕРіРѕ СЂР°Р±РѕС‚РЅРёРєР°: ";
     std::cin.ignore();
     std::getline(std::cin, name);
 
-    std::cout << "Выберите тип работника:\n"
-        << "1. Ветеринар (обслуживает до 20 животных, зарплата 20)\n"
-        << "2. Уборщик (обслуживает 1 вольер, зарплата 12)\n"
-        << "3. Кормильщик (обслуживает 2 вольера, зарплата 15)\n";
+    std::cout << "Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї СЂР°Р±РѕС‚РЅРёРєР°:\n"
+        << "1. Р’РµС‚РµСЂРёРЅР°СЂ (РѕР±СЃР»СѓР¶РёРІР°РµС‚ РґРѕ 20 Р¶РёРІРѕС‚РЅС‹С…, Р·Р°СЂРїР»Р°С‚Р° 20)\n"
+        << "2. РЈР±РѕСЂС‰РёРє (РѕР±СЃР»СѓР¶РёРІР°РµС‚ 1 РІРѕР»СЊРµСЂ, Р·Р°СЂРїР»Р°С‚Р° 12)\n"
+        << "3. РљРѕСЂРјРёР»СЊС‰РёРє (РѕР±СЃР»СѓР¶РёРІР°РµС‚ 2 РІРѕР»СЊРµСЂР°, Р·Р°СЂРїР»Р°С‚Р° 15)\n";
     std::cin >> typeChoice;
 
     if (std::cin.fail() || typeChoice < 1 || typeChoice > 3) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Ошибка ввода. Нанимать не удалось.\n";
+        std::cout << "РћС€РёР±РєР° РІРІРѕРґР°. РќР°РЅРёРјР°С‚СЊ РЅРµ СѓРґР°Р»РѕСЃСЊ.\n";
         return;
     }
 
@@ -935,101 +935,101 @@ void Zoo::hireEmployee() {
     }
 
     employees.emplace_back(name, role, salary);
-    std::cout << "Работник " << name << " нанят как " << employees.back().getRoleString() << ".\n";
+    std::cout << "Р Р°Р±РѕС‚РЅРёРє " << name << " РЅР°РЅСЏС‚ РєР°Рє " << employees.back().getRoleString() << ".\n";
 }
 
 void Zoo::fireEmployee() {
     if (employees.empty()) {
-        std::cout << "\nВ зоопарке нет работников для увольнения.\n";
+        std::cout << "\nР’ Р·РѕРѕРїР°СЂРєРµ РЅРµС‚ СЂР°Р±РѕС‚РЅРёРєРѕРІ РґР»СЏ СѓРІРѕР»СЊРЅРµРЅРёСЏ.\n";
         return;
     }
 
-    std::cout << "\n--- Увольнение работника ---\n";
-    std::cout << "Список работников:\n";
+    std::cout << "\n--- РЈРІРѕР»СЊРЅРµРЅРёРµ СЂР°Р±РѕС‚РЅРёРєР° ---\n";
+    std::cout << "РЎРїРёСЃРѕРє СЂР°Р±РѕС‚РЅРёРєРѕРІ:\n";
     for (size_t i = 0; i < employees.size(); ++i) {
         std::cout << i + 1 << ". " << employees[i].getName()
-            << " (Должность: " << (employees[i].getRole() == EmployeeRole::CLEANER ? "Уборщик" :
-                employees[i].getRole() == EmployeeRole::FEEDER ? "Кормильщик" : "Экскурсовод")
+            << " (Р”РѕР»Р¶РЅРѕСЃС‚СЊ: " << (employees[i].getRole() == EmployeeRole::CLEANER ? "РЈР±РѕСЂС‰РёРє" :
+                employees[i].getRole() == EmployeeRole::FEEDER ? "РљРѕСЂРјРёР»СЊС‰РёРє" : "Р­РєСЃРєСѓСЂСЃРѕРІРѕРґ")
             << ")\n";
     }
 
-    std::cout << "Введите номер работника для увольнения: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЂР°Р±РѕС‚РЅРёРєР° РґР»СЏ СѓРІРѕР»СЊРЅРµРЅРёСЏ: ";
     int choice;
     std::cin >> choice;
     std::cin.ignore();
 
     if (choice < 1 || choice > employees.size()) {
-        std::cout << "Неверный выбор.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ.\n";
         return;
     }
 
-    std::cout << "Работник " << employees[choice - 1].getName() << " уволен.\n";
+    std::cout << "Р Р°Р±РѕС‚РЅРёРє " << employees[choice - 1].getName() << " СѓРІРѕР»РµРЅ.\n";
     employees.erase(employees.begin() + choice - 1);
 }
 
 void Zoo::listEmployees() const {
     if (employees.empty()) {
-        std::cout << "В зоопарке пока нет работников.\n";
+        std::cout << "Р’ Р·РѕРѕРїР°СЂРєРµ РїРѕРєР° РЅРµС‚ СЂР°Р±РѕС‚РЅРёРєРѕРІ.\n";
         return;
     }
 
-    std::cout << "\n--- Список работников ---\n";
+    std::cout << "\n--- РЎРїРёСЃРѕРє СЂР°Р±РѕС‚РЅРёРєРѕРІ ---\n";
     for (const auto& employee : employees) {
-        std::cout << "Имя: " << employee.getName()
-            << ", Тип: ";
+        std::cout << "РРјСЏ: " << employee.getName()
+            << ", РўРёРї: ";
         switch (employee.getRole()) {
         case EmployeeRole::VETERINARIAN:
-            std::cout << "Ветеринар";
+            std::cout << "Р’РµС‚РµСЂРёРЅР°СЂ";
             break;
         case EmployeeRole::CLEANER:
-            std::cout << "Уборщик";
+            std::cout << "РЈР±РѕСЂС‰РёРє";
             break;
         case EmployeeRole::FEEDER:
-            std::cout << "Кормильщик";
+            std::cout << "РљРѕСЂРјРёР»СЊС‰РёРє";
             break;
         }
-        std::cout << ", Зарплата: " << employee.getSalary() << "\n";
+        std::cout << ", Р—Р°СЂРїР»Р°С‚Р°: " << employee.getSalary() << "\n";
     }
 }
 
 void Zoo::displayEnclosureInfo() const {
     if (enclosures.empty()) {
-        std::cout << "\nВ зоопарке нет вольеров.\n";
+        std::cout << "\nР’ Р·РѕРѕРїР°СЂРєРµ РЅРµС‚ РІРѕР»СЊРµСЂРѕРІ.\n";
         return;
     }
 
-    std::cout << "\n--- Информация о вольерах ---\n";
+    std::cout << "\n--- РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РІРѕР»СЊРµСЂР°С… ---\n";
     for (size_t i = 0; i < enclosures.size(); ++i) {
         const Enclosure& enc = enclosures[i];
         std::string typeName;
         if (enc.getAllowedType() == AnimalType::CARNIVORE) {
-            typeName = "Хищники";
+            typeName = "РҐРёС‰РЅРёРєРё";
         }
         else if (enc.getAllowedType() == AnimalType::HERBIVORE) {
-            typeName = "Травоядные";
+            typeName = "РўСЂР°РІРѕСЏРґРЅС‹Рµ";
         }
         else if (enc.getAllowedType() == AnimalType::AQUATIC) {
-            typeName = "Водоплавающие";
+            typeName = "Р’РѕРґРѕРїР»Р°РІР°СЋС‰РёРµ";
         }
         if (enc.getCurrentCount() == 0) {
-            std::cout << "  Этот вольер пуст.\n";
+            std::cout << "  Р­С‚РѕС‚ РІРѕР»СЊРµСЂ РїСѓСЃС‚.\n";
         }
 
-        std::cout << "Вольер " << i + 1 << ":\n";
-        std::cout << "  Тип животных: " << typeName << "\n";
-        std::cout << "  Климат: " << enc.getClimate() << "\n";
-        std::cout << "  Вместимость: " << enc.getCapacity() << "\n";
-        std::cout << "  Текущее количество животных: " << enc.getCurrentCount() << "\n";
-        std::cout << "  Ежедневные расходы: " << enc.getDailyExpense() << " монет\n";
+        std::cout << "Р’РѕР»СЊРµСЂ " << i + 1 << ":\n";
+        std::cout << "  РўРёРї Р¶РёРІРѕС‚РЅС‹С…: " << typeName << "\n";
+        std::cout << "  РљР»РёРјР°С‚: " << enc.getClimate() << "\n";
+        std::cout << "  Р’РјРµСЃС‚РёРјРѕСЃС‚СЊ: " << enc.getCapacity() << "\n";
+        std::cout << "  РўРµРєСѓС‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р¶РёРІРѕС‚РЅС‹С…: " << enc.getCurrentCount() << "\n";
+        std::cout << "  Р•Р¶РµРґРЅРµРІРЅС‹Рµ СЂР°СЃС…РѕРґС‹: " << enc.getDailyExpense() << " РјРѕРЅРµС‚\n";
     }
 }
 
 int Zoo::totalAnimalCount() const {
-    return animals.size(); // Возвращает общее количество животных в зоопарке
+    return animals.size(); // Р’РѕР·РІСЂР°С‰Р°РµС‚ РѕР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р¶РёРІРѕС‚РЅС‹С… РІ Р·РѕРѕРїР°СЂРєРµ
 }
 
 bool Zoo::isGameOver() const {
-    return money < 0; // Игра заканчивается, если нет денег
+    return money < 0; // РРіСЂР° Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ, РµСЃР»Рё РЅРµС‚ РґРµРЅРµРі
 }
 
 void Zoo::refreshPurchasePool() {
@@ -1039,79 +1039,79 @@ void Zoo::refreshPurchasePool() {
         Gender randomGender = (std::rand() % 2 == 0) ? Gender::MALE : Gender::FEMALE;
         purchasePool.push_back(new Animal(info.name, info.species, randomGender, 0, -1, info.climate, info.price, info.type));
     }
-    std::cout << "Пул животных обновлён.\n";
+    std::cout << "РџСѓР» Р¶РёРІРѕС‚РЅС‹С… РѕР±РЅРѕРІР»С‘РЅ.\n";
 }
 
 void Zoo::updatePurchasePool() {
-    const int updateCost = 100; // Стоимость обновления
+    const int updateCost = 100; // РЎС‚РѕРёРјРѕСЃС‚СЊ РѕР±РЅРѕРІР»РµРЅРёСЏ
 
     if (money < updateCost) {
-        std::cout << "Недостаточно денег для обновления пула животных! Нужно " << updateCost << " монет.\n";
+        std::cout << "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ РїСѓР»Р° Р¶РёРІРѕС‚РЅС‹С…! РќСѓР¶РЅРѕ " << updateCost << " РјРѕРЅРµС‚.\n";
         return;
     }
 
-    money -= updateCost; // Списываем деньги
-    refreshPurchasePool(); // Обновляем пул животных
-    std::cout << "Пул животных обновлён за " << updateCost << " монет.\n";
+    money -= updateCost; // РЎРїРёСЃС‹РІР°РµРј РґРµРЅСЊРіРё
+    refreshPurchasePool(); // РћР±РЅРѕРІР»СЏРµРј РїСѓР» Р¶РёРІРѕС‚РЅС‹С…
+    std::cout << "РџСѓР» Р¶РёРІРѕС‚РЅС‹С… РѕР±РЅРѕРІР»С‘РЅ Р·Р° " << updateCost << " РјРѕРЅРµС‚.\n";
 }
 
 void Zoo::renameAnimal() {
     if (animals.empty()) {
-        std::cout << "В зоопарке нет животных для переименования.\n";
+        std::cout << "Р’ Р·РѕРѕРїР°СЂРєРµ РЅРµС‚ Р¶РёРІРѕС‚РЅС‹С… РґР»СЏ РїРµСЂРµРёРјРµРЅРѕРІР°РЅРёСЏ.\n";
         return;
     }
 
-    // Вывод списка животных
-    std::cout << "\n--- Список животных ---\n";
+    // Р’С‹РІРѕРґ СЃРїРёСЃРєР° Р¶РёРІРѕС‚РЅС‹С…
+    std::cout << "\n--- РЎРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С… ---\n";
     for (size_t i = 0; i < animals.size(); ++i) {
-        std::cout << i + 1 << ". Имя: " << animals[i]->getName() << " (Вид: " << animals[i]->getSpecies() << ")\n";
+        std::cout << i + 1 << ". РРјСЏ: " << animals[i]->getName() << " (Р’РёРґ: " << animals[i]->getSpecies() << ")\n";
     }
 
-    // Выбор животного для переименования
-    std::cout << "Введите номер животного, которое хотите переименовать: ";
+    // Р’С‹Р±РѕСЂ Р¶РёРІРѕС‚РЅРѕРіРѕ РґР»СЏ РїРµСЂРµРёРјРµРЅРѕРІР°РЅРёСЏ
+    std::cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ Р¶РёРІРѕС‚РЅРѕРіРѕ, РєРѕС‚РѕСЂРѕРµ С…РѕС‚РёС‚Рµ РїРµСЂРµРёРјРµРЅРѕРІР°С‚СЊ: ";
     size_t choice;
     std::cin >> choice;
 
     if (choice < 1 || choice > animals.size()) {
-        std::cout << "Неверный выбор. Переименование отменено.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ. РџРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ РѕС‚РјРµРЅРµРЅРѕ.\n";
         return;
     }
 
-    // Ввод нового имени
-    std::cout << "Введите новое имя для животного: ";
+    // Р’РІРѕРґ РЅРѕРІРѕРіРѕ РёРјРµРЅРё
+    std::cout << "Р’РІРµРґРёС‚Рµ РЅРѕРІРѕРµ РёРјСЏ РґР»СЏ Р¶РёРІРѕС‚РЅРѕРіРѕ: ";
     std::string newName;
     std::cin.ignore();
     std::getline(std::cin, newName);
 
-    // Изменение имени
+    // РР·РјРµРЅРµРЅРёРµ РёРјРµРЅРё
     animals[choice - 1]->setName(newName);
 }
 
 void Zoo::breedAnimals() {
     if (animals.size() < 2) {
-        std::cout << "В зоопарке недостаточно животных для размножения.\n";
+        std::cout << "Р’ Р·РѕРѕРїР°СЂРєРµ РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ Р¶РёРІРѕС‚РЅС‹С… РґР»СЏ СЂР°Р·РјРЅРѕР¶РµРЅРёСЏ.\n";
         return;
     }
 
-    std::cout << "\n--- Список животных ---\n";
+    std::cout << "\n--- РЎРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С… ---\n";
     for (size_t i = 0; i < animals.size(); ++i) {
         const Animal* animal = animals[i];
-        std::cout << i + 1 << ". Имя: " << animal->getName()
-            << " (Вид: " << animal->getSpecies()
-            << ", Пол: " << (animal->getGender() == Gender::MALE ? "Мужской" : "Женский")
-            << ", Возраст: " << animal->getAgeInDays() << " дней)\n";
+        std::cout << i + 1 << ". РРјСЏ: " << animal->getName()
+            << " (Р’РёРґ: " << animal->getSpecies()
+            << ", РџРѕР»: " << (animal->getGender() == Gender::MALE ? "РњСѓР¶СЃРєРѕР№" : "Р–РµРЅСЃРєРёР№")
+            << ", Р’РѕР·СЂР°СЃС‚: " << animal->getAgeInDays() << " РґРЅРµР№)\n";
     }
 
-    std::cout << "Введите номер первого животного: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РїРµСЂРІРѕРіРѕ Р¶РёРІРѕС‚РЅРѕРіРѕ: ";
     size_t parent1Index, parent2Index;
     std::cin >> parent1Index;
 
-    std::cout << "Введите номер второго животного: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РІС‚РѕСЂРѕРіРѕ Р¶РёРІРѕС‚РЅРѕРіРѕ: ";
     std::cin >> parent2Index;
 
     if (parent1Index < 1 || parent1Index > animals.size() ||
         parent2Index < 1 || parent2Index > animals.size()) {
-        std::cout << "Неверный выбор. Размножение отменено.\n";
+        std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ. Р Р°Р·РјРЅРѕР¶РµРЅРёРµ РѕС‚РјРµРЅРµРЅРѕ.\n";
         return;
     }
 
@@ -1119,28 +1119,28 @@ void Zoo::breedAnimals() {
     Animal* parent2 = animals[parent2Index - 1];
 
     if (parent1->getGender() == parent2->getGender()) {
-        std::cout << "Ошибка: Оба животного одного пола. Размножение невозможно.\n";
+        std::cout << "РћС€РёР±РєР°: РћР±Р° Р¶РёРІРѕС‚РЅРѕРіРѕ РѕРґРЅРѕРіРѕ РїРѕР»Р°. Р Р°Р·РјРЅРѕР¶РµРЅРёРµ РЅРµРІРѕР·РјРѕР¶РЅРѕ.\n";
         return;
     }
 
     if (parent1->getSpecies() == parent2->getSpecies()) {
         if (parent1->getAgeInDays() < 5 && parent2->getAgeInDays() < 5) {
-            std::cout << "Ошибка: хотя бы один родитель должен быть старше 5 дней!\n";
+            std::cout << "РћС€РёР±РєР°: С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ СЂРѕРґРёС‚РµР»СЊ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СЃС‚Р°СЂС€Рµ 5 РґРЅРµР№!\n";
             return;
         }
 
         Animal* child = *parent1 + *parent2;
         if (child) {
             addAnimalToEnclosure(child, parent1->getType());
-            std::cout << "Поздравляем! У " << parent1->getSpecies() << " родился малыш: " << child->getName() << "!\n";
+            std::cout << "РџРѕР·РґСЂР°РІР»СЏРµРј! РЈ " << parent1->getSpecies() << " СЂРѕРґРёР»СЃСЏ РјР°Р»С‹С€: " << child->getName() << "!\n";
         }
         else {
-            std::cout << "Размножение не удалось.\n";
+            std::cout << "Р Р°Р·РјРЅРѕР¶РµРЅРёРµ РЅРµ СѓРґР°Р»РѕСЃСЊ.\n";
         }
     }
     else {
         if (parent1->getAgeInDays() < 5 || parent2->getAgeInDays() < 5) {
-            std::cout << "Ошибка: оба родителя должны быть старше 5 дней!\n";
+            std::cout << "РћС€РёР±РєР°: РѕР±Р° СЂРѕРґРёС‚РµР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СЃС‚Р°СЂС€Рµ 5 РґРЅРµР№!\n";
             return;
         }
 
@@ -1161,7 +1161,7 @@ void Zoo::breedAnimals() {
             parent1->getSpecies(), parent2->getSpecies());
 
         addAnimalToEnclosure(hybrid, hybridType);
-        std::cout << "Поздравляем! Родился новый гибрид: " << hybridName << " (Вид: " << hybridSpecies << ")\n";
+        std::cout << "РџРѕР·РґСЂР°РІР»СЏРµРј! Р РѕРґРёР»СЃСЏ РЅРѕРІС‹Р№ РіРёР±СЂРёРґ: " << hybridName << " (Р’РёРґ: " << hybridSpecies << ")\n";
     }
 }
 
@@ -1169,29 +1169,29 @@ void Zoo::breedAnimals() {
 void Zoo::addAnimalToEnclosure(Animal* child, AnimalType type) {
     for (auto& enclosure : enclosures) {
         if (enclosure.getAllowedType() == type && enclosure.hasFreeSlot()) {
-            enclosure.addAnimal(); // Добавляем в вольер
-            animals.push_back(child); // Добавляем потомка в список животных
-            std::cout << "Новое животное добавлено в вольер!\n";
+            enclosure.addAnimal(); // Р”РѕР±Р°РІР»СЏРµРј РІ РІРѕР»СЊРµСЂ
+            animals.push_back(child); // Р”РѕР±Р°РІР»СЏРµРј РїРѕС‚РѕРјРєР° РІ СЃРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С…
+            std::cout << "РќРѕРІРѕРµ Р¶РёРІРѕС‚РЅРѕРµ РґРѕР±Р°РІР»РµРЅРѕ РІ РІРѕР»СЊРµСЂ!\n";
             return;
         }
     }
 
-    std::cerr << "Ошибка: Нет свободного места в вольерах для потомка!\n";
-    delete child; // Удаляем потомка, если добавить не удалось
+    std::cerr << "РћС€РёР±РєР°: РќРµС‚ СЃРІРѕР±РѕРґРЅРѕРіРѕ РјРµСЃС‚Р° РІ РІРѕР»СЊРµСЂР°С… РґР»СЏ РїРѕС‚РѕРјРєР°!\n";
+    delete child; // РЈРґР°Р»СЏРµРј РїРѕС‚РѕРјРєР°, РµСЃР»Рё РґРѕР±Р°РІРёС‚СЊ РЅРµ СѓРґР°Р»РѕСЃСЊ
 }
 
 void Zoo::healAnimal() {
-    // Проверяем наличие ветеринара
+    // РџСЂРѕРІРµСЂСЏРµРј РЅР°Р»РёС‡РёРµ РІРµС‚РµСЂРёРЅР°СЂР°
     bool hasVeterinarian = std::any_of(employees.begin(), employees.end(),
         [](const Employee& emp) { return emp.getRole() == EmployeeRole::VETERINARIAN; });
 
     if (!hasVeterinarian) {
-        std::cout << "В зоопарке нет ветеринара! Лечение невозможно.\n";
+        std::cout << "Р’ Р·РѕРѕРїР°СЂРєРµ РЅРµС‚ РІРµС‚РµСЂРёРЅР°СЂР°! Р›РµС‡РµРЅРёРµ РЅРµРІРѕР·РјРѕР¶РЅРѕ.\n";
         return;
     }
 
     if (sickAnimals.empty()) {
-        std::cout << "Нет больных животных для лечения.\n";
+        std::cout << "РќРµС‚ Р±РѕР»СЊРЅС‹С… Р¶РёРІРѕС‚РЅС‹С… РґР»СЏ Р»РµС‡РµРЅРёСЏ.\n";
         return;
     }
 
@@ -1199,10 +1199,10 @@ void Zoo::healAnimal() {
         [&](const SickAnimal& sick) { return std::find(animals.begin(), animals.end(), sick.animal) == animals.end(); }),
         sickAnimals.end());
 
-    std::cout << "Выберите животное для лечения:\n";
+    std::cout << "Р’С‹Р±РµСЂРёС‚Рµ Р¶РёРІРѕС‚РЅРѕРµ РґР»СЏ Р»РµС‡РµРЅРёСЏ:\n";
     for (size_t i = 0; i < sickAnimals.size(); ++i) {
         std::cout << i + 1 << ". " << sickAnimals[i].animal->getName()
-            << " (Болеет " << sickAnimals[i].daysSick << " дней)\n";
+            << " (Р‘РѕР»РµРµС‚ " << sickAnimals[i].daysSick << " РґРЅРµР№)\n";
     }
 
     int choice;
@@ -1211,12 +1211,12 @@ void Zoo::healAnimal() {
     if (std::cin.fail() || choice < 1 || choice > static_cast<int>(sickAnimals.size())) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Ошибка ввода. Пожалуйста, введите корректный номер животного.\n";
+        std::cout << "РћС€РёР±РєР° РІРІРѕРґР°. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РєРѕСЂСЂРµРєС‚РЅС‹Р№ РЅРѕРјРµСЂ Р¶РёРІРѕС‚РЅРѕРіРѕ.\n";
         return;
     }
 
     Animal* healedAnimal = sickAnimals[choice - 1].animal;
-    std::cout << "Животное " << healedAnimal->getName() << " полностью выздоровело!\n";
+    std::cout << "Р–РёРІРѕС‚РЅРѕРµ " << healedAnimal->getName() << " РїРѕР»РЅРѕСЃС‚СЊСЋ РІС‹Р·РґРѕСЂРѕРІРµР»Рѕ!\n";
 
     sickAnimals.erase(std::remove_if(sickAnimals.begin(), sickAnimals.end(),
         [&](const SickAnimal& sick) { return sick.animal == healedAnimal; }),

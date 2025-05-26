@@ -3,29 +3,29 @@
 
 #include <string>
 
-// Перечисление типов сотрудников
+// РџРµСЂРµС‡РёСЃР»РµРЅРёРµ С‚РёРїРѕРІ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ
 enum class EmployeeRole {
-    CLEANER,      // Уборщик
-    FEEDER,       // Кормильщик
-    VETERINARIAN  // Ветеринар
+    CLEANER,      // РЈР±РѕСЂС‰РёРє
+    FEEDER,       // РљРѕСЂРјРёР»СЊС‰РёРє
+    VETERINARIAN  // Р’РµС‚РµСЂРёРЅР°СЂ
 };
 
 class Employee {
 private:
-    std::string name;       // Имя сотрудника
-    EmployeeRole role;      // Роль сотрудника
-    double salary;          // Зарплата сотрудника
+    std::string name;       // РРјСЏ СЃРѕС‚СЂСѓРґРЅРёРєР°
+    EmployeeRole role;      // Р РѕР»СЊ СЃРѕС‚СЂСѓРґРЅРёРєР°
+    double salary;          // Р—Р°СЂРїР»Р°С‚Р° СЃРѕС‚СЂСѓРґРЅРёРєР°
 
 public:
-    // Конструктор
+    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
     Employee(const std::string& name, EmployeeRole role, double salary);
 
-    // Геттеры
+    // Р“РµС‚С‚РµСЂС‹
     std::string getName() const;
     EmployeeRole getRole() const;
     double getSalary() const;
 
-    // Строковое представление роли
+    // РЎС‚СЂРѕРєРѕРІРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ СЂРѕР»Рё
     std::string getRoleString() const;
 };
 

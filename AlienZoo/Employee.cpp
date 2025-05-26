@@ -18,12 +18,12 @@ double Employee::getSalary() const {
 std::string Employee::getRoleString() const {
     switch (role) {
     case EmployeeRole::CLEANER:
-        return "Уборщик";
+        return "РЈР±РѕСЂС‰РёРє";
     case EmployeeRole::FEEDER:
-        return "Кормильщик";
+        return "РљРѕСЂРјРёР»СЊС‰РёРє";
     case EmployeeRole::VETERINARIAN:
-        return "Ветеринар";
+        return "Р’РµС‚РµСЂРёРЅР°СЂ";
     default:
-        return "Неизвестная роль";
+        return "РќРµРёР·РІРµСЃС‚РЅР°СЏ СЂРѕР»СЊ";
     }
 }

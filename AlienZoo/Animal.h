@@ -9,7 +9,7 @@
 enum class Gender { MALE, FEMALE };
 enum class AnimalType { CARNIVORE, HERBIVORE, AQUATIC };
 
-// Структура для хранения информации о родителях
+// РЎС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ СЂРѕРґРёС‚РµР»СЏС…
 struct ParentInfo {
     std::string name;
     std::string species;
@@ -22,32 +22,32 @@ struct ParentInfo {
 class Animal {
 private:
     std::string name;
-    std::string species; // Вид животного
-    int ageInDays;       // Возраст в днях
-    double weight;       // Вес животного
+    std::string species; // Р’РёРґ Р¶РёРІРѕС‚РЅРѕРіРѕ
+    int ageInDays;       // Р’РѕР·СЂР°СЃС‚ РІ РґРЅСЏС…
+    double weight;       // Р’РµСЃ Р¶РёРІРѕС‚РЅРѕРіРѕ
     std::string preferredClimate;
-    double price;        // Цена животного
-    AnimalType type;     // Тип животного (хищник, травоядное и т.д.)
-    Gender gender;       // Пол животного
-    std::pair<ParentInfo, ParentInfo> parents; // Информация о родителях
-    bool isBornInZoo;    // Указывает, родилось ли животное в зоопарке
+    double price;        // Р¦РµРЅР° Р¶РёРІРѕС‚РЅРѕРіРѕ
+    AnimalType type;     // РўРёРї Р¶РёРІРѕС‚РЅРѕРіРѕ (С…РёС‰РЅРёРє, С‚СЂР°РІРѕСЏРґРЅРѕРµ Рё С‚.Рґ.)
+    Gender gender;       // РџРѕР» Р¶РёРІРѕС‚РЅРѕРіРѕ
+    std::pair<ParentInfo, ParentInfo> parents; // РРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЂРѕРґРёС‚РµР»СЏС…
+    bool isBornInZoo;    // РЈРєР°Р·С‹РІР°РµС‚, СЂРѕРґРёР»РѕСЃСЊ Р»Рё Р¶РёРІРѕС‚РЅРѕРµ РІ Р·РѕРѕРїР°СЂРєРµ
 
-    // Методы для генерации случайных чисел
+    // РњРµС‚РѕРґС‹ РґР»СЏ РіРµРЅРµСЂР°С†РёРё СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
     int generateRandomInt(int min, int max) const;
     double generateRandomDouble(double min, double max) const;
 
 public:
-    // Конструктор
+    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
     Animal(const std::string& name, const std::string& species, Gender gender,
         int ageInDays = 0, double weight = -1, const std::string& preferredClimate = "",
         double price = 0.0, AnimalType type = AnimalType::CARNIVORE, bool isBornInZoo = false,
         const std::string& parent1Name = "", const std::string& parent2Name = "");
 
 
-    // Деструктор
+    // Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
     ~Animal();
 
-    // Геттеры
+    // Р“РµС‚С‚РµСЂС‹
     std::string getName() const;
     std::string getSpecies() const;
     int getAgeInDays() const;
@@ -59,12 +59,12 @@ public:
     std::pair<ParentInfo, ParentInfo> getParents() const;
     bool wasBornInZoo() const;
 
-    // Сеттеры
+    // РЎРµС‚С‚РµСЂС‹
     void setName(const std::string& newName);
     void increaseAgeInDays();
     bool checkDeathAfterTenDays() const;
 
-    // Перегрузка оператора для размножения
+    // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° РґР»СЏ СЂР°Р·РјРЅРѕР¶РµРЅРёСЏ
     Animal* operator+(Animal& partner);
 };
 

@@ -8,7 +8,7 @@ int main() {
     SetConsoleOutputCP(1251);
 
     std::string zooName;
-    std::cout << "Ââåäèòå íàçâàíèå âàøåãî èíîïëàíåòíîãî çîîïàðêà: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð²Ð°ÑˆÐµÐ³Ð¾ Ð¸Ð½Ð¾Ð¿Ð»Ð°Ð½ÐµÑ‚Ð½Ð¾Ð³Ð¾ Ð·Ð¾Ð¾Ð¿Ð°Ñ€ÐºÐ°: ";
     std::getline(std::cin, zooName);
 
     Zoo zoo(zooName);
@@ -16,12 +16,12 @@ int main() {
 
     while (true) {
         if (zoo.isGameOver()) {
-            std::cout << "\nÓ âàñ êîí÷èëèñü äåíüãè. Âû ïðîèãðàëè.\n";
+            std::cout << "\nÐ£ Ð²Ð°Ñ ÐºÐ¾Ð½Ñ‡Ð¸Ð»Ð¸ÑÑŒ Ð´ÐµÐ½ÑŒÐ³Ð¸. Ð’Ñ‹ Ð¿Ñ€Ð¾Ð¸Ð³Ñ€Ð°Ð»Ð¸.\n";
             break;
         }
         if (zoo.getCurrentDay() > simulationDaysGoal) {
-            std::cout << "\nÏîçäðàâëÿåì! Âû ïðîäåðæàëèñü " << simulationDaysGoal
-                << " äíåé. Âû âûèãðàëè!\n";
+            std::cout << "\nÐŸÐ¾Ð·Ð´Ñ€Ð°Ð²Ð»ÑÐµÐ¼! Ð’Ñ‹ Ð¿Ñ€Ð¾Ð´ÐµÑ€Ð¶Ð°Ð»Ð¸ÑÑŒ " << simulationDaysGoal
+                << " Ð´Ð½ÐµÐ¹. Ð’Ñ‹ Ð²Ñ‹Ð¸Ð³Ñ€Ð°Ð»Ð¸!\n";
             break;
         }
 

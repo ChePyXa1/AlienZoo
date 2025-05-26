@@ -1,6 +1,6 @@
 #include "Enclosure.h"
 
-// Конструктор
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 Enclosure::Enclosure(int capacity, AnimalType allowedType, double dailyExpense, const std::string& climate)
     : capacity(capacity), allowedType(allowedType), dailyExpense(dailyExpense), currentCount(0), climate(climate) {}
 
