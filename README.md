@@ -1,4 +1,5 @@
 # AlienZoo
+![Логотип AlienZoo](https://i.ytimg.com/vi/MNKS392DOuY/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AHUBoAC4AOKAgwIABABGE8gXyhlMA8=&amp;rs=AOn4CLC_7UYl_OeaiwyFS-8JDqvo5e9iCg)
 AlienZoo - это симулятор инопланетного зоопарка, написанный на C++. В данной игре вам предстоит примерить на себе роль директора зоопарка и привести его к успеху в течение 30 дней.
 
 ## Каковы же ваши задачи в роли директора этого зоопарка?
