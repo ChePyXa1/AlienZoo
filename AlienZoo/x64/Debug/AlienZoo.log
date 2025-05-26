@@ -1,6 +1,0 @@
-﻿  Zoo.cpp
-C:\Users\ChePy\source\repos\AlienZoo5\AlienZoo\Zoo.cpp(590,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ChePy\source\repos\AlienZoo5\AlienZoo\Zoo.cpp(842,46): warning C4267: -=: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ChePy\source\repos\AlienZoo5\AlienZoo\Zoo.cpp(847,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\ChePy\source\repos\AlienZoo5\AlienZoo\Zoo.cpp(1028,24): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
-  AlienZoo.vcxproj -> C:\Users\ChePy\source\repos\AlienZoo5\x64\Debug\AlienZoo.exe
